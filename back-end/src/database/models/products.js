@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      models.products.belongsToMany(models.sales, { through: 'ActorMovies' });
+      models.sales.belongsToMany(models.products, { through: 'ActorMovies' });
     }
   }
   products.init({
     id: DataTypes.INTEGER,
     name: DataTypes.STRING,
     price: DataTypes.DECIMAL(4, 2),
-    url_image: DataTypes.STRING
+    url_image: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'products',
