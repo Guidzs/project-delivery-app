@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import axios from '../utils/connectionDatabase';
 import { validateFieldsLogin } from '../utils/validations';
 
 export default function Login() {
@@ -8,14 +9,14 @@ export default function Login() {
   const history = useHistory();
 
   const [disabledButton, setDisabledButton] = useState(true);
-
-  console.log(history);
+  const [errorEnabled, setErrorEnabled] = useState(false);
 
   useEffect(
     () => {
       const validate = async () => {
         try {
           await validateFieldsLogin.validate({ password, email });
+          setErrorEnabled(false);
           setDisabledButton(false);
         } catch (error) {
           setDisabledButton(true);
@@ -25,6 +26,21 @@ export default function Login() {
     },
     [email, password],
   );
+
+  const login = async () => {
+    try {
+      const response = await axios.post('/login', { email, password });
+      console.log(response);
+
+      const { data: { token } } = response;
+
+      localStorage.setItem('token', token);
+
+      history.push('/customer/products');
+    } catch (error) {
+      setErrorEnabled(true);
+    }
+  };
 
   return (
     <div className="register">
@@ -67,12 +83,16 @@ export default function Login() {
         AINDA NÃO TENHO CONTA
       </button>
 
-      <p
-        className="common_login__element-invalid-email"
-        data-testid="common_login__element-invalid-email"
-      >
-        Mensagem de Erro!
-      </p>
+      {
+        (errorEnabled) && (
+          <p
+            className="common_login__element-invalid-email"
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário inválido! Tente novamente.
+          </p>
+        )
+      }
 
       <hr />
       <h3>Admin</h3>
