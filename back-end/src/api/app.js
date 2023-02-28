@@ -1,6 +1,8 @@
+import 'express-async-errors';
+
 const express = require('express');
-const { default: ErrorMiddleware } = require('../middleware/middlewareError');
-require('express-async-errors');
+
+const HttpException = require('../utils/HttpError');
 
 const loginRouter = require('../utils/routers/loginRouter');
 
@@ -12,6 +14,6 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 
-app.use(ErrorMiddleware);
+app.use(HttpException);
 
 module.exports = app;
