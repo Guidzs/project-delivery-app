@@ -75,7 +75,7 @@ export default function Register() {
         className="common_register__element-invalid_register"
         data-testid="common_register__element-invalid_register"
       >
-        Mensagem de Erro!
+        Dados Inválidos! Tente outro email ou senha.
       </p>
     </div>
   );
