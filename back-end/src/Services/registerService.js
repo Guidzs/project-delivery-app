@@ -4,8 +4,8 @@ const md5 = require('md5');
 
 const createNewUser = async ({name, email, password }) => {
   const hash = md5(password);
-  const verifyByEmail = await users.findOne({ email })
-  const verifyByName = await users.findOne({ name })
+  const verifyByEmail = await users.findOne({ where: { email } });
+  const verifyByName = await users.findOne({ where: { name } });
   if(verifyByEmail || verifyByName) {
     throw new HttpException(409, 'Conflict')
   }

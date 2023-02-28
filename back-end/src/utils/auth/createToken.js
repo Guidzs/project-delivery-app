@@ -1,10 +1,9 @@
 require('dotenv/config');
 const jwt = require('jsonwebtoken');
 
-// const fs = require('fs');
+const fs = require('fs');
 
-// const secret = async () =>  fs.readFileSync('../../../jwt.evaluation.key', { encoding: 'utf-8' });
- const secret = 'meu segredo';
+const secret = () => fs.readFileSync('../../../jwt.evaluation.key', { encoding: 'utf-8' });
 
 const jwtConfig = {
     expiresIn: '7d',
