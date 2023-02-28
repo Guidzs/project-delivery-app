@@ -9,12 +9,12 @@ const products = [
   },
 ];
 
-const customer = {
-  name: 'Nome Da Pessoa Usuária',
-  email: 'email@dominio.com',
-  role: 'customer',
-  token: 'token',
-};
+// const customer = {
+//   name: 'Nome Da Pessoa Usuária',
+//   email: 'email@dominio.com',
+//   role: 'customer',
+//   token: 'token',
+// };
 
 export default function CustomerProducts() {
   return (
