@@ -4,5 +4,5 @@
       this.status = status;
   }
 }
-
+// ola você
 module.exports = HttpException;
