@@ -1,77 +1,34 @@
-import React from 'react';
-
-const products = [
-  { id: 1,
-    name: 'xablau',
-    price: '100,00',
-    image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-    quantity: '1',
-  },
-];
-
-// const customer = {
-//   name: 'Nome Da Pessoa Usuária',
-//   email: 'email@dominio.com',
-//   role: 'customer',
-//   token: 'token',
-// };
+import React, { useEffect, useState } from 'react';
+import CustomerProduct from '../components/CustomerProduct';
+import axios from '../utils/connectionDatabase';
 
 export default function CustomerProducts() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(
+    () => {
+      const fetchProducts = async () => {
+        const productsResponse = await axios.get('/products');
+        setProducts(productsResponse.data);
+      };
+      fetchProducts();
+    },
+    [null],
+  );
+
   return (
     <div className="card-product">
-      {products.map((product) => (
-        <div key={ product.id }>
-          <div className="price">
-            <span>
-              R$
-              { ' ' }
-            </span>
-            <span
-              data-testid={ `customer_products__element-card-price-${product.id}` }
-            >
-              { product.price.replace(/\./, ',') }
-            </span>
-          </div>
-          <img
-            className="product-img"
-            data-testid={ `customer_products__img-card-bg-image-${product.id}` }
-            src={ product.image }
-            alt="imagem do produto"
-            style={ { width: '200px' } }
+      {
+        products.map(({ name, price, urlImage, id }) => (
+          <CustomerProduct
+            key={ `product-${id}` }
+            name={ name }
+            price={ price }
+            urlImage={ urlImage }
+            id={ id }
           />
-
-          <p
-            data-testid={ `customer_products__element-card-title-${product.id}` }
-          >
-            { product.name }
-          </p>
-          <div className="controls">
-            <button
-              // onClick={ removeItem }
-              type="button"
-              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-            >
-              -
-            </button>
-
-            <input
-              type="text"
-              data-testid={ `customer_products__input-card-quantity-${product.id}` }
-              value={ product.quantity }
-              // onChange={ changeManualQuantity }
-            />
-            <button
-              // onClick={ addItem }
-              type="button"
-              data-testid={ `customer_products__button-card-add-item-${product.id}` }
-            >
-              +
-            </button>
-
-          </div>
-
-        </div>
-      ))}
+        ))
+      }
 
     </div>
   );
