@@ -12,7 +12,7 @@ try {
  return token;
 } catch (error) {
   throw new HttpException(404, 'Not Found');
-};
+}
 };
 
 module.exports = authentication;
