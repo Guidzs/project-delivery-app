@@ -12,15 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.sales_products.belongsTo(models.products);
-      models.products.hasMany(models.sales, { through: models.sales_products });
+      models.products.belongsToMany(models.sales, { through: models.sales_products });
 
 
       models.sales_products.belongsTo(models.sales);
-      models.sales.hasMany(models.products, { through: models.sales_products });
+      models.sales.belongsToMany(models.products, { through: models.sales_products });
     }
   }
   sales_products.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     sale_id: {
       type: DataTypes.INTEGER,
       references: 'sales',
