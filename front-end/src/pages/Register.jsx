@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
-import context from '../context/Context';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { history } = useContext(context);
+  const history = useHistory();
 
   console.log(history); // apenas para o react não reclamar - LOGO LOGO REMOVER
 
