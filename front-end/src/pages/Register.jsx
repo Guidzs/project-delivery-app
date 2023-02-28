@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import { validateFieldsRegister } from '../utils/validations';
 
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const history = useHistory();
 
   console.log(history); // apenas para o react não reclamar - LOGO LOGO REMOVER
+
+  useEffect(() => {
+    const validate = async () => {
+      try {
+        await validateFieldsRegister.validate({ name, password, email });
+
+        setButtonDisabled(false);
+      } catch (_e) {
+        setButtonDisabled(true);
+      }
+    };
+    validate();
+  }, [name, password, email]);
 
   const register = () => {
 
@@ -18,6 +34,7 @@ export default function Register() {
     <div className="register">
       <input
         type="text"
+        placeholder="name"
         value={ name }
         onChange={ ({ target }) => setName(target.value) }
         className="common_register__input-name"
@@ -25,7 +42,8 @@ export default function Register() {
       />
 
       <input
-        type="text"
+        type="email"
+        placeholder="email"
         value={ email }
         onChange={ ({ target }) => setEmail(target.value) }
         className="common_register__input-email"
@@ -33,7 +51,8 @@ export default function Register() {
       />
 
       <input
-        type="text"
+        type="password"
+        placeholder="password"
         value={ password }
         onChange={ ({ target }) => setPassword(target.value) }
         className="common_register__input-password"
@@ -45,6 +64,7 @@ export default function Register() {
       <button
         type="button"
         onClick={ () => register() }
+        disabled={ buttonDisabled }
         className="common_register__button-register"
         data-testid="common_register__button-register"
       >
