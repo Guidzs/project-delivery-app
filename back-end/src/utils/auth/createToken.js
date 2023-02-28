@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const secret = () => fs.readFileSync(
   path.resolve(__dirname, '../../../jwt.evaluation.key'), 
-  { encoding: 'utf-8' }
+  { encoding: 'utf-8' },
 );
 
 const jwtConfig = {

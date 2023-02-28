@@ -20,14 +20,13 @@ const IMAGES_PATH = path.resolve(__dirname, '../../public');
 // ROTAS
 app.use(express.json());
 
-app.get('/coffee', (_req, res) => res.status(418).send("polar"));
+app.get('/coffee', (_req, res) => res.status(418).send('polar'));
 app.get('/coffee', (_req, res) => res.status(418).end());
 
 app.use('/images', express.static(IMAGES_PATH));
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
-
 
 app.use(() => error);
 
