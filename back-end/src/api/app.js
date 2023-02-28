@@ -14,6 +14,4 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 
-app.use(HttpException);
-
 module.exports = app;
