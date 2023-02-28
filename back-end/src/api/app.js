@@ -4,6 +4,8 @@ const express = require('express');
 
 const HttpException = require('../utils/HttpError');
 
+const error = new HttpException();
+
 const loginRouter = require('../utils/routers/loginRouter');
 
 const app = express();
@@ -14,6 +16,6 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 
-app.use(HttpException);
+app.use(() => error);
 
 module.exports = app;
