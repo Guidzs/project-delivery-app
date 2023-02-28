@@ -1,18 +1,22 @@
-const { User } = require('../database/models');
+const {  users } = require('../database/models');
 const generateToken = require('../utils/auth/createToken');
 const HttpException = require('../utils/HttpError');
+const md5 = require('md5');
 
 const authentication = async ({ email, password }) => {
-try {
-  const user = await User.findOne({
-    attributes: { exclude: 'password' },
-     where: { email, password } });
-     const { id, role } = user;
- const token = generateToken({ id, role });
- return token;
-} catch (error) {
-  throw new HttpException(404, 'Not Found');
-}
+  const hash = md5(password)
+  const user = await users.findOne({
+    where: { email } });
+    if(user === null) {
+      throw new HttpException(404, 'Not Found');
+    }
+    console.log(user.dataValues);
+    const { id, role, password: pass, name } = user.dataValues
+    if(pass !== hash) {
+      throw new HttpException(404, 'Not Found');
+    }
+    const token = generateToken({ id, role, name });
+    return token
 };
 
 module.exports = authentication;
