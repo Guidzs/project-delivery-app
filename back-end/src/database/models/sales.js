@@ -23,7 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   sales.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
     totalPrice: DataTypes.DECIMAL(4, 2),
