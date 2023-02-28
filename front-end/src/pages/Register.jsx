@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { validateFieldsRegister } from '../utils/validations';
+import axios from '../utils/connectionDatabase';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -8,6 +9,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [errorEnabled, setErrorEnabled] = useState(false);
 
   const history = useHistory();
 
@@ -17,7 +19,7 @@ export default function Register() {
     const validate = async () => {
       try {
         await validateFieldsRegister.validate({ name, password, email });
-
+        setErrorEnabled(false);
         setButtonDisabled(false);
       } catch (_e) {
         setButtonDisabled(true);
@@ -26,8 +28,17 @@ export default function Register() {
     validate();
   }, [name, password, email]);
 
-  const register = () => {
+  const register = async () => {
+    try {
+      const { dataValues: { token } } = await axios
+        .post('/register', { name, email, password });
 
+      localStorage.setItem('token', token);
+
+      history.push('/customer/products');
+    } catch (error) {
+      setErrorEnabled(true);
+    }
   };
 
   return (
@@ -71,12 +82,16 @@ export default function Register() {
         CADASTRAR
       </button>
 
-      <p
-        className="common_register__element-invalid_register"
-        data-testid="common_register__element-invalid_register"
-      >
-        Dados Inválidos! Tente outro email ou senha.
-      </p>
+      {
+        (errorEnabled) && (
+          <p
+            className="common_register__element-invalid_register"
+            data-testid="common_register__element-invalid_register"
+          >
+            Dados Inválidos! Tente outro email ou senha.
+          </p>
+        )
+      }
     </div>
   );
 }

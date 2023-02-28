@@ -10,7 +10,7 @@ try {
   next();
 } catch (error) {
   const validate = validateNewUserFields(req.body);
-  res.status(401).json({ message: validate })
+  res.status(401).json({ message: validate });
 }
 };
 

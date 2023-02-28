@@ -23,7 +23,7 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 
-app.use('/register', registerRouter)
+app.use('/register', registerRouter);
 
 app.use(() => error);
 
