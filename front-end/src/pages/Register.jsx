@@ -13,8 +13,6 @@ export default function Register() {
 
   const history = useHistory();
 
-  console.log(history); // apenas para o react não reclamar - LOGO LOGO REMOVER
-
   useEffect(() => {
     const validate = async () => {
       try {
@@ -30,13 +28,14 @@ export default function Register() {
 
   const register = async () => {
     try {
-      const { dataValues: { token } } = await axios
+      const { data: { token } } = await axios
         .post('/register', { name, email, password });
 
       localStorage.setItem('token', token);
 
       history.push('/customer/products');
     } catch (error) {
+      console.log(error);
       setErrorEnabled(true);
     }
   };
