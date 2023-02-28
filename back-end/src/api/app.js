@@ -12,6 +12,6 @@ app.use(express.json());
 
 app.use('/login', loginRouter);
 
-app.use(ErrorMiddleware)
+app.use(ErrorMiddleware);
 
 module.exports = app;
