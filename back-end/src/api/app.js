@@ -1,4 +1,4 @@
-import 'express-async-errors';
+require('express-async-errors')
 
 const express = require('express');
 
