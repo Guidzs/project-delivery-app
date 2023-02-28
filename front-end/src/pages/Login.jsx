@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import validateFieldsLogin from '../utils/validations';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
 
+  const [disabledButton, setDisabledButton] = useState(true);
+
   console.log(history);
 
-  const login = () => {
-
-  };
+  useEffect(async () => {
+    try {
+      await validateFieldsLogin.validate({ password, email });
+      setDisabledButton(false);
+    } catch (error) {
+      setDisabledButton(true);
+    }
+  }, [email, password]);
 
   return (
     <div className="register">
@@ -35,6 +43,7 @@ export default function Login() {
       <button
         type="button"
         onClick={ () => login() }
+        disabled={ disabledButton }
         className="common_login__button-login"
         data-testid="common_login__button-login"
       >
