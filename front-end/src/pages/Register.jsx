@@ -31,7 +31,7 @@ export default function Register() {
       const { data } = await axios
         .post('/register', { name, email, password, role: 'costumer' });
 
-      localStorage.setItem('user', data);
+      localStorage.setItem('user', JSON.stringify(data));
 
       history.push('/customer/products');
     } catch (error) {
