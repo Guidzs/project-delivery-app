@@ -13,6 +13,6 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const createToken = (data) => jwt.sign({ ...data }, secret(), jwtConfig);
+const createToken = (data) => jwt.sign(data, secret(), jwtConfig);
 
 module.exports = createToken;
