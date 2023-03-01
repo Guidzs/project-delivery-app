@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import context from '../context/Context';
 
 export default function CustomerProduct({ id, name, price, urlImage }) {
+  const { handleCart } = useContext(context);
   const [quantity, setQuantity] = useState(0);
 
+  const changeQuantity = (QUANTITY) => {
+    if (QUANTITY <= 0) {
+      setQuantity(0);
+    } else {
+      setQuantity(QUANTITY);
+    }
+  };
+
   useEffect(() => {
-    console.log(quantity);
+    handleCart({ name, price, quantity });
   }, [quantity]);
 
   return (
@@ -36,7 +46,7 @@ export default function CustomerProduct({ id, name, price, urlImage }) {
       </p>
       <div className="controls">
         <button
-          onClick={ () => setQuantity(quantity - 1) }
+          onClick={ () => changeQuantity(quantity - 1) }
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
         >
@@ -47,10 +57,10 @@ export default function CustomerProduct({ id, name, price, urlImage }) {
           type="text"
           data-testid={ `customer_products__input-card-quantity-${id}` }
           value={ quantity }
-          onChange={ ({ target }) => setQuantity(target.value) }
+          onChange={ ({ target }) => changeQuantity(target.value) }
         />
         <button
-          onClick={ () => setQuantity(quantity + 1) }
+          onClick={ () => changeQuantity(quantity + 1) }
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
         >
