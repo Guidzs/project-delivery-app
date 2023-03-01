@@ -1,9 +1,17 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Context from './Context';
 
 export default function Provider({ children }) {
   const [cart, setCart] = useState([]);
+  const [totalValueCart, setTotalValueCart] = useState(0);
+
+  useEffect(() => {
+    const total = cart.reduce((acc, prod) => acc + prod.price * prod.quantity, 0);
+    setTotalValueCart(total);
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const handleCart = ({ name, price, quantity }) => {
     // conferir se o produto existe no carrinho
@@ -31,7 +39,8 @@ export default function Provider({ children }) {
   const myContext = useMemo(() => ({
     cart,
     handleCart,
-  }), [cart]);
+    totalValueCart,
+  }), [cart, totalValueCart]);
 
   return (
     <Context.Provider value={ myContext }>
