@@ -6,8 +6,8 @@ const sellerService = async () => {
   const sellers = result.map((user) => user.dataValues.name);
   console.log(sellers);
   return sellers;
-}
+};
 
 module.exports = {
   sellerService,
-}
+};

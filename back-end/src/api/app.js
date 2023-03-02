@@ -28,7 +28,7 @@ app.use('/images', express.static(IMAGES_PATH));
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
-app.use('/users', userRoutes)
+app.use('/users', userRoutes);
 
 app.use(() => error);
 
