@@ -8,7 +8,7 @@ const createNewUser = async ({ name, email, password, role }) => {
   const verifyByName = await users.findOne({ where: { name } });
 
   if (verifyByEmail || verifyByName) {
-    console.log('Já existe essa pessoa cadastrada')
+    console.log('Já existe essa pessoa cadastrada');
     throw new HttpException(409, 'Conflict');
   }
   const user = await users.create({ name, email, password: hash, role });
