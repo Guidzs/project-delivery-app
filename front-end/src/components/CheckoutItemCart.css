@@ -1,0 +1,76 @@
+.checkout-item-cart {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-index-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 5px;
+  text-align: center;
+  width: 50px;
+}
+
+.table-descricao-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 5px;
+  text-align: center;
+  width: 300px;
+}
+
+.table-quantity-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 5px;
+  text-align: center;
+  width: 100px;
+}
+
+.table-unit-value-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 5px;
+  text-align: center;
+  width: 100px;
+}
+
+.table-sub-total-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 5px;
+  text-align: center;
+  width: 100px;
+}
+
+.table-button-remove-item-field {
+  align-items: center;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  width: 100px;
+}
+
+.table-remove-item {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 100%;
+}
