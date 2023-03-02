@@ -14,13 +14,18 @@ export default function OrderDetails() {
 
   console.log(sellers);
 
+  // Buscar vendedores no BD
   useEffect(() => {
     const getSellers = async () => {
-      const { data: { sellers: response } } = await axios.get('users/seller');
+      const { data: { sellers: response } } = await axios.get('/users/seller');
       setSellers(response);
     };
     getSellers();
   }, [null]);
+  // Colocar o valor do primeiro option no state
+  useEffect(() => {
+    if (sellers.length > 0) setSeller(sellers[0]);
+  }, [sellers]);
 
   return (
     <div className="order-details">
@@ -33,7 +38,7 @@ export default function OrderDetails() {
           console.log('novo option');
         } }
       >
-        { sellers.map(({ name }, index) => (
+        { sellers.map((name, index) => (
           <option key={ `${name}-${index}` }>
             { name }
           </option>
