@@ -33,8 +33,14 @@ module.exports = (sequelize, DataTypes) => {
     totalPrice: DataTypes.DECIMAL(4, 2),
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
-    saleDate: DataTypes.DATE,
-    status: DataTypes.STRING
+    saleDate:{
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    status: {
+     type: DataTypes.STRING,
+      defaultValue: 'Pendente',
+    },
   }, {
     sequelize,
     modelName: 'sales',
