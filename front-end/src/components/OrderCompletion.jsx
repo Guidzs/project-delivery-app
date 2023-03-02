@@ -31,7 +31,10 @@ export default function OrderCompletion() {
           }
         </tbody>
       </table>
-      <div className="order-details-total">
+      <div
+        className="order-details-total"
+        data-testid="customer_checkout__element-order-total-price"
+      >
         { totalValueCart.toFixed(2).replace('.', ',') }
       </div>
     </div>
