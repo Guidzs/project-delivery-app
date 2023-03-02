@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import context from '../context/Context';
 
 export default function ShoppingCart() {
   const history = useHistory();
-  /* const disabledButton = totalValue === 0 */
+  const { totalValueCart } = useContext(context);
+  const disabledButton = totalValueCart === 0;
 
   return (
     <button
       type="button"
-      disabled
-      // disabled={ disabledButton }
+      disabled={ disabledButton }
       data-testid="customer_products__button-cart"
-      onClick={ () => history.push('/checkout/products') }
+      onClick={ () => history.push('/customer/checkout') }
     >
-      VER CARRINHO
+      VER CARRINHO R$&nbsp;
       <span data-testid="customer_products__checkout-bottom-value">
-        0,00
-        {/* totalValue.replace('.', ',') */}
+        { totalValueCart.toFixed(2).replace('.', ',') }
       </span>
     </button>
   );
