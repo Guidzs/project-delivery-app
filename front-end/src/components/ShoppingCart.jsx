@@ -12,7 +12,7 @@ export default function ShoppingCart() {
       type="button"
       disabled={ disabledButton }
       data-testid="customer_products__button-cart"
-      onClick={ () => history.push('/checkout/products') }
+      onClick={ () => history.push('/customer/checkout') }
     >
       VER CARRINHO R$&nbsp;
       <span data-testid="customer_products__checkout-bottom-value">
