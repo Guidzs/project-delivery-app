@@ -11,6 +11,7 @@ const error = new HttpException();
 const loginRouter = require('../routers/loginRouter');
 const registerRouter = require('../routers/registerRouter');
 const productsRouter = require('../routers/productsRouter');
+const userRoutes = require('../routers/userRoutes');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/images', express.static(IMAGES_PATH));
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
+app.use('/users', userRoutes)
 
 app.use(() => error);
 
