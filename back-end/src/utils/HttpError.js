@@ -1,8 +1,8 @@
- class HttpException extends Error {
+class HttpException {
   constructor(status, message) {
-      super(message);
       this.status = status;
+      this.message = message;
   }
 }
-// ola você
+
 module.exports = HttpException;
