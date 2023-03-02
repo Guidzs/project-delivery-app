@@ -22,7 +22,7 @@ const authentication = async ({ email, password }) => {
   }
 
   const token = generateToken({ id, role, name });
-  return token;
+  return { role, name, token };
 };
 
 module.exports = authentication;

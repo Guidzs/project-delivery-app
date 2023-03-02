@@ -2,14 +2,17 @@ const createNewUser = require('../Services/registerService');
 const createToken = require('../utils/auth/createToken');
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
-  const response = await createNewUser({ name, email, password });
-
-  const { id: ID, role: ROLE, name: NAME } = response.dataValues;
-
-  const token = createToken({ id: ID, role: ROLE, name: NAME });
-
-  return res.status(201).json({ token });
+  try {
+    const { name, email, password, role } = req.body;
+    console.log(name, email, password, role);
+    await createNewUser({ name, email, password, role });
+    console.log('pessoa cadastrada');
+    const token = createToken({ name, email, role });
+    console.log('token', token);
+    res.status(201).json({ token, role, name, email });
+  } catch (error) {
+    res.status(409).json({ error });
+  }
 };
 
 module.exports = register;

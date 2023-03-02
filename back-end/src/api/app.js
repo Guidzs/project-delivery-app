@@ -8,28 +8,25 @@ const HttpException = require('../utils/HttpError');
 
 const error = new HttpException();
 
-const loginRouter = require('../utils/routers/loginRouter');
-
-const registerRouter = require('../utils/routers/registerRouter');
+const loginRouter = require('../routers/loginRouter');
+const registerRouter = require('../routers/registerRouter');
+const productsRouter = require('../routers/productsRouter');
 
 const app = express();
 
 app.use(cors());
 const IMAGES_PATH = path.resolve(__dirname, '../../public');
 
-app.get('/coffee', (_req, res) => res.status(418).send("polar"));
-app.use('/images', express.static(IMAGES_PATH));
-
-
-app.get('/coffee', (_req, res) => res.status(418).end());
-
-app.get('/log', (_req, res) => res.status(200).json({ ok: true }));
-
+// ROTAS
 app.use(express.json());
 
-app.use('/login', loginRouter);
+app.get('/coffee', (_req, res) => res.status(418).send('polar'));
+app.get('/coffee', (_req, res) => res.status(418).end());
 
+app.use('/images', express.static(IMAGES_PATH));
+app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/products', productsRouter);
 
 app.use(() => error);
 

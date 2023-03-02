@@ -28,10 +28,10 @@ export default function Register() {
 
   const register = async () => {
     try {
-      const { data: { token } } = await axios
-        .post('/register', { name, email, password });
+      const { data } = await axios
+        .post('/register', { name, email, password, role: 'costumer' });
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(data));
 
       history.push('/customer/products');
     } catch (error) {

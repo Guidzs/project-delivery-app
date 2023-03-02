@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const secret = () => fs.readFileSync(
   path.resolve(__dirname, '../../../jwt.evaluation.key'), 
-  { encoding: 'utf-8' }
+  { encoding: 'utf-8' },
 );
 
 const jwtConfig = {
@@ -13,6 +13,6 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const createToken = (data) => jwt.sign({ ...data }, secret(), jwtConfig);
+const createToken = (data) => jwt.sign(data, secret(), jwtConfig);
 
 module.exports = createToken;

@@ -32,9 +32,9 @@ export default function Login() {
       const response = await axios.post('/login', { email, password });
       console.log(response);
 
-      const { data: { token } } = response;
+      const { data } = response;
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(data));
 
       history.push('/customer/products');
     } catch (error) {
