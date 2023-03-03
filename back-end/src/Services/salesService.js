@@ -1,16 +1,8 @@
-const { sales, users, sales_products } = require('../database/models');
-
-const association = async() => {
-  const sale = await sales.create({ include: [
-    { model: products, as: 'products' },
-     { model:  sales_products, as: ' salesProducts' },
-  ] });
-  return sale;
-};
+const { sales } = require('../database/models');
 
 const newSales = async (body) => {
-const sale = await sales.findAll();
+ const sale = await sales.create(...body);
 return sale;
-}
+};
 
 module.exports = { newSales };
