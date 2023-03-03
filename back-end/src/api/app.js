@@ -4,14 +4,13 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 
-const HttpException = require('../utils/HttpError');
-
-const error = new HttpException();
+const errorMiddleware = require('../middleware/errorMiddleware');
 
 const loginRouter = require('../routers/loginRouter');
 const registerRouter = require('../routers/registerRouter');
 const productsRouter = require('../routers/productsRouter');
 const userRoutes = require('../routers/userRoutes');
+const salesRouter = require('../routers/salesRouter');
 
 const app = express();
 
@@ -29,7 +28,7 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', userRoutes);
-
-app.use(() => error);
+app.use('/sales', salesRouter);
+app.use(errorMiddleware);
 
 module.exports = app;

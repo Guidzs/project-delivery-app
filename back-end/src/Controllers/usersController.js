@@ -1,10 +1,10 @@
-const { sellerService } = require('../Services/usersService');
+const { serviceSellerName } = require('../Services/usersService');
 
-const sellerController = async (_req, res) => {
-  const sellers = await sellerService();
-  res.status(200).json({ sellers });
+const sellerByName = async (_req, res) => {
+  const sellers = await serviceSellerName();
+  return res.status(200).json({ sellers });
 };
 
 module.exports = {
-  sellerController,
+  sellerByName,
 };

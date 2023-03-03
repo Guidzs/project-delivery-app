@@ -13,8 +13,6 @@ const authentication = async ({ email, password }) => {
     throw new HttpException(404, 'Not Found');
   }
 
-  console.log(user.dataValues);
-
   const { id, role, password: pass, name } = user.dataValues;
 
   if (pass !== hash) {
