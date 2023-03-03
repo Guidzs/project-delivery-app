@@ -7,15 +7,11 @@ const create = async (req, res) => {
   try {
     veryfyToken(authorization);
   } catch (error) {
-    return res.status(404).json({ jwt: 'failed' });
-  }
-
-  try {
-    const saleId = await newSales(req.body);
-    res.status(201).json({ saleId });
-  } catch (error) {
     res.status(409).json();
   }
 };
+
+const saleId = await newSales(req.body);
+res.status(201).json({ saleId });
 
 module.exports = { create };
