@@ -36,10 +36,17 @@ export default function Provider({ children }) {
     }
   };
 
+  const removeItemFromCart = (index) => {
+    const copiaDoCarrinho = [...cart];
+    copiaDoCarrinho.splice(index, 1);
+    setCart(copiaDoCarrinho);
+  };
+
   const myContext = useMemo(() => ({
     cart,
     handleCart,
     totalValueCart,
+    removeItemFromCart,
   }), [cart, totalValueCart]);
 
   return (
