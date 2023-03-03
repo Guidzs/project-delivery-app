@@ -1,32 +1,41 @@
-import React, { useState, useEffect/* , useContext */ } from 'react';
-// import { useHistory } from 'react-router';
-// import context from '../context/Context';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router';
+import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 
 export default function OrderDetails() {
-  // const history = useHistory();
-  // const { cart } = useContext(context);
+  const history = useHistory();
+  const { cart, totalValueCart } = useContext(context);
 
   const [sellers, setSellers] = useState([]);
 
   const [seller, setSeller] = useState('');
-  const [address, setAddress] = useState('');
-  const [addressNumber, setAddressNumber] = useState('');
+  const [deliveryAddress, setAddress] = useState('');
+  const [deliveryNumber, setAddressNumber] = useState('');
 
   const salesConnection = async () => {
-    /* const result = axios.post(
-      '', // rota
-      {}, // body
-      // headers
-    )
-    console.log(result);
-    return result */
+    const { name: customer } = JSON.parse(localStorage.getItem('user'));
+    const body = {
+      products: cart,
+      totalPrice: totalValueCart,
+      deliveryNumber,
+      deliveryAddress,
+      customer,
+      seller,
+    };
+    const { data: { saleId } } = await axios.post(
+      '/sales', // ROTA
+      body, // BODY
+      // HEADERS
+    );
+    console.log(saleId);
+    return saleId;
   };
 
-  const finishOrder = () => {
+  const finishOrder = async () => {
     // finalizar compras!
-    salesConnection();
-    // history.push(`/customer/orders/${}`);
+    const id = await salesConnection();
+    history.push(`/customer/orders/${id}`);
   };
 
   console.log(sellers);
@@ -67,7 +76,7 @@ export default function OrderDetails() {
         placeholder="address"
         data-testid="customer_checkout__input-address"
         className="customer_checkout__input-address"
-        value={ address }
+        value={ deliveryAddress }
         onChange={ ({ target }) => setAddress(target.value) }
       />
 
@@ -76,7 +85,7 @@ export default function OrderDetails() {
         placeholder="number"
         data-testid="customer_checkout__input-address-number"
         className="customer_checkout__input-address-number"
-        value={ addressNumber }
+        value={ deliveryNumber }
         onChange={ ({ target }) => setAddressNumber(target.value) }
       />
 

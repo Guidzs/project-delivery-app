@@ -2,10 +2,12 @@ const { sales, users, sales_products: SalesProducts,
    products: Products } = require('../database/models');
 
 const newSales = async (body) => {
+
   const { seller, products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
   // Pegar os ids do seller e customer que são entregues pelo app com o nome do usuário
   const { dataValues: { id: sellerId } } = await users.findOne({ where: { name: seller } });
   const { dataValues: { id: userId } } = await users.findOne({ where: { name: customer } });
+  console.log('amigo estou aqui 2')
   // Inserir dados na tabela sales
   const { dataValues: { id: saleId } } = await sales
     .create({
