@@ -14,19 +14,18 @@ export default function OrderDetails() {
   const [deliveryNumber, setAddressNumber] = useState('');
 
   const salesConnection = async () => {
-    const { name: customer } = JSON.parse(localStorage.getItem('user'));
-    const body = {
-      products: cart,
-      totalPrice: totalValueCart,
-      deliveryNumber,
-      deliveryAddress,
-      customer,
-      seller,
-    };
+    const { name: customer, token } = JSON.parse(localStorage.getItem('user'));
     const { data: { saleId } } = await axios.post(
       '/sales', // ROTA
-      body, // BODY
-      // HEADERS
+      {
+        products: cart,
+        totalPrice: totalValueCart,
+        deliveryNumber,
+        deliveryAddress,
+        customer,
+        seller,
+      }, // BODY
+      { headers: { authorization: token } }, // HEADERS
     );
     console.log(saleId);
     return saleId;
@@ -37,8 +36,6 @@ export default function OrderDetails() {
     const id = await salesConnection();
     history.push(`/customer/orders/${id}`);
   };
-
-  console.log(sellers);
 
   // Buscar vendedores no BD
   useEffect(() => {
