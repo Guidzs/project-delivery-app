@@ -9,9 +9,9 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(409).json();
   }
+  const saleId = await newSales(req.body);
+  res.status(201).json({ saleId });
 };
 
-const saleId = await newSales(req.body);
-res.status(201).json({ saleId });
 
 module.exports = { create };
