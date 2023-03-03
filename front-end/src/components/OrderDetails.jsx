@@ -1,15 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect/* , useContext */ } from 'react';
+// import { useHistory } from 'react-router';
+// import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 
 export default function OrderDetails() {
+  // const history = useHistory();
+  // const { cart } = useContext(context);
+
   const [sellers, setSellers] = useState([]);
 
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
 
-  const finishOrder = () => {
+  const salesConnection = async () => {
+    /* const result = axios.post(
+      '', // rota
+      {}, // body
+      // headers
+    )
+    console.log(result);
+    return result */
+  };
 
+  const finishOrder = () => {
+    // finalizar compras!
+    salesConnection();
+    // history.push(`/customer/orders/${}`);
   };
 
   console.log(sellers);
