@@ -25,4 +25,4 @@ const getById = async (req, res) => {
   return res.status(201).json({ message: sale });
 };
 
-module.exports = { create };
+module.exports = { create, getById };
