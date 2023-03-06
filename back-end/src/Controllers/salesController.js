@@ -1,4 +1,4 @@
-const { newSales, currentSale } = require('../Services/salesService');
+const { newSales } = require('../Services/salesService');
 const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
@@ -7,24 +7,10 @@ const create = async (req, res) => {
   try {
     veryfyToken(authorization);
   } catch (error) {
-    return res.status(409).json();
+    res.status(409).json();
   }
   const saleId = await newSales(req.body);
-  return res.status(201).json({ 
-    message: saleId,
-   });
+  res.status(201).json({ saleId });
 };
 
-const getById = async (req, res) => {
-  const { authorization } = req.headers;
-  const { saleId } = req.params;
-  try {
-    veryfyToken(authorization);
-  } catch (error) {
-    return res.status(409).json(error);
-  }
-  const sale = await currentSale(saleId);
-  return res.status(201).json({ message: sale });
-};
-
-module.exports = { create, getById };
+module.exports = { create };

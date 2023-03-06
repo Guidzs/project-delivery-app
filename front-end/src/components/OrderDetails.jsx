@@ -10,55 +10,32 @@ export default function OrderDetails() {
   const [sellers, setSellers] = useState([]);
 
   const [seller, setSeller] = useState('');
-  const [address, setAddress] = useState('');
-  const [addressNumber, setAddressNumber] = useState('');
+  const [deliveryAddress, setAddress] = useState('');
+  const [deliveryNumber, setAddressNumber] = useState('');
 
   const salesConnection = async () => {
-    // { seller, products, customer, deliveryAddress, deliveryNumber }
-    const { token, name } = JSON.parse(localStorage.getItem('user'));
-    console.log('data:::: ', {
-      seller,
-      products: cart,
-      customer: name,
-      totalPrice: totalValueCart,
-      deliveryAddress: address,
-      deliveryNumber: addressNumber,
-    });
-
-    const response = await axios.post(
-      '/sales',
+    const { name: customer, token } = JSON.parse(localStorage.getItem('user'));
+    const { data: { saleId } } = await axios.post(
+      '/sales', // ROTA
       {
-        seller,
         products: cart,
-        customer: name,
         totalPrice: totalValueCart,
-        deliveryAddress: address,
-        deliveryNumber: addressNumber,
-      },
-      {
-        headers: {
-          authorization: token,
-        },
-      },
+        deliveryNumber,
+        deliveryAddress,
+        customer,
+        seller,
+      }, // BODY
+      { headers: { authorization: token } }, // HEADERS
     );
-    // console.log('result: ', saleId);
-    const { message: saleId } = response.data;
-
-    // const saleId = result.data;
-    // const saleId = message;
-    console.log('saleId: ', saleId);
+    console.log(saleId);
     return saleId;
   };
 
   const finishOrder = async () => {
     // finalizar compras!
-    const saleId = await salesConnection();
-    const id = saleId.toString();
-    console.log(typeof id);
+    const id = await salesConnection();
     history.push(`/customer/orders/${id}`);
   };
-
-  // console.log(sellers);
 
   // Buscar vendedores no BD
   useEffect(() => {
@@ -96,7 +73,7 @@ export default function OrderDetails() {
         placeholder="address"
         data-testid="customer_checkout__input-address"
         className="customer_checkout__input-address"
-        value={ address }
+        value={ deliveryAddress }
         onChange={ ({ target }) => setAddress(target.value) }
       />
 
@@ -105,7 +82,7 @@ export default function OrderDetails() {
         placeholder="number"
         data-testid="customer_checkout__input-address-number"
         className="customer_checkout__input-address-number"
-        value={ addressNumber }
+        value={ deliveryNumber }
         onChange={ ({ target }) => setAddressNumber(target.value) }
       />
 
