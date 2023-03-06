@@ -35,4 +35,22 @@ const currentSale = async (saleId) => {
   return { sale, seller };
 };
 
-module.exports = { newSales, currentSale };
+const getAllSalesService = async () => {
+  try {
+    const data = await sales.findAll({
+      include: [
+        { model: Products, as: 'productsList' },
+        { model: users, as: 'user', attributes: ['name'] },
+        { model: users, as: 'seller', attributes: ['name'] }
+      ],
+    });
+
+    const allSales = data.map((d) => d.dataValues);
+
+    return { allSales };
+  } catch (error) {
+    console.log("Erro na getAllSalesService ---> ", error);
+  }
+}
+
+module.exports = { newSales, currentSale, getAllSalesService };
