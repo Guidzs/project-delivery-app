@@ -42,11 +42,33 @@ export default function Provider({ children }) {
     setCart(copiaDoCarrinho);
   };
 
+  const RedirectUserByLogin = (history) => {
+    try {
+      const { role } = JSON.parse(localStorage.getItem('user'));
+      switch (role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/');
+        break;
+      case 'admin':
+        history.push('/');
+        break;
+      default:
+        console.log('Algo de errado não está certo!');
+      }
+    } catch (error) {
+      console.log('Usuário ainda não logado');
+    }
+  };
+
   const myContext = useMemo(() => ({
     cart,
     handleCart,
     totalValueCart,
     removeItemFromCart,
+    RedirectUserByLogin,
   }), [cart, totalValueCart]);
 
   return (
