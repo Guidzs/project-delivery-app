@@ -66,14 +66,30 @@ export default function Provider({ children }) {
     const { role, token } = JSON.parse(localStorage.getItem('user'));
     const validateToken = validateJwt(token);
     console.log(role, validateToken);
+
+    if (role !== 'customer' || !!validateToken) {
+      history.push('/');
+    }
   };
 
   const confirmSellerInRoute = () => {
     const { role, token } = JSON.parse(localStorage.getItem('user'));
+    const validateToken = validateJwt(token);
+    console.log(role, validateToken);
+
+    if (role !== 'seller' || !!validateToken) {
+      history.push('/');
+    }
   };
 
   const confirmAdminInRoute = () => {
     const { role, token } = JSON.parse(localStorage.getItem('user'));
+    const validateToken = validateJwt(token);
+    console.log(role, validateToken);
+
+    if (role !== 'admin' || !!validateToken) {
+      history.push('/');
+    }
   };
 
   const myContext = useMemo(() => ({
@@ -82,6 +98,9 @@ export default function Provider({ children }) {
     totalValueCart,
     removeItemFromCart,
     redirectUserByLogin,
+    confirmCustomerInRoute,
+    confirmSellerInRoute,
+    confirmAdminInRoute,
   }), [cart, totalValueCart]);
 
   return (
