@@ -74,7 +74,7 @@ export default function OrderDetails() {
     return <h1>Loading...</h1>;
   }
 
-  const { id, status, product: products, saleDate, totalPrice } = sales.sale;
+  const { id, status, productsList: products, saleDate, totalPrice } = sales.sale;
   const { name: seller } = sales.seller;
 
   return (
@@ -126,9 +126,9 @@ export default function OrderDetails() {
           { /* PRODUCT ITEMS */ }
           {
             products.map((element, index) => {
-              console.log(element.sales_products);
+              console.log(element.SalesProducts);
               const { name, price } = element;
-              const { product_id: productId, quantity } = element.sales_products;
+              const { productId, quantity } = element.SalesProducts;
               return (
                 <tr key={ productId }>
                   <td

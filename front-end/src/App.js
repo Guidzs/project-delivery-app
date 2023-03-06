@@ -8,9 +8,6 @@ import CustomerCheckout from './pages/CustomerCheckout';
 
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 
-import CostumerOrders from './pages/CostumerOrders';
-
-
 function App() {
   return (
     <div className="App">
@@ -21,8 +18,6 @@ function App() {
         <Route path="/customer/products" component={ CustomerProducts } />
         <Route path="/customer/checkout" component={ CustomerCheckout } />
         <Route path="/customer/orders/:saleId" component={ CustomerOrderDetails } />
-        <Route path="/customer/orders" component={ CostumerOrders } />
-
       </Switch>
     </div>
   );

@@ -26,7 +26,7 @@ const { sales, users, SalesProducts,
 
 const currentSale = async (saleId) => {
   const sale = await sales.findByPk(saleId, {
-    include: { model: Products, as: 'product' }
+    include: { model: Products, as: 'productsList' }
   });
 
   const sellerStore = await users.findByPk(sale.sellerId);

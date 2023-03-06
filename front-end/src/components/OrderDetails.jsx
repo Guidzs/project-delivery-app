@@ -53,7 +53,9 @@ export default function OrderDetails() {
   const finishOrder = async () => {
     // finalizar compras!
     const saleId = await salesConnection();
-    history.push(`/customer/orders/${saleId}`);
+    const id = saleId.toString();
+    console.log(typeof id);
+    history.push(`/customer/orders/${id}`);
   };
 
   // console.log(sellers);
