@@ -59,7 +59,7 @@ export default function CheckoutItemCart({ name, price, quantity, index }) {
 
 CheckoutItemCart.propTypes = {
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
 };

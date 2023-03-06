@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import context from '../context/Context';
 import CheckoutItemCart from './CheckoutItemCart';
 
-export default function OrderCompletion() {
+export default function CheckoutCompletion() {
   const { cart, totalValueCart } = useContext(context);
   return (
     <div className="order-completion">

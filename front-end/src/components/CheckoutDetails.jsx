@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 
-export default function OrderDetails() {
+export default function CheckoutDetails() {
   const history = useHistory();
   const { cart, totalValueCart } = useContext(context);
 

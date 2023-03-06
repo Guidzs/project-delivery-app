@@ -1,5 +1,5 @@
-const { sales, users, sales_products: SalesProducts,
-   products: Products } = require('../database/models');
+const { sales, users, SalesProducts,
+  products: Products } = require('../database/models');
 
 const newSales = async (body) => {
   const { products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
@@ -25,4 +25,14 @@ const newSales = async (body) => {
   return saleId;
 };
 
-module.exports = { newSales };
+const currentSale = async (saleId) => {
+  const sale = await sales.findByPk(saleId, {
+    include: { model: Products, as: 'productsList' },
+  });
+
+  const sellerStore = await users.findByPk(sale.sellerId);
+  const seller = { name: sellerStore.name };
+  return { sale, seller };
+};
+
+module.exports = { newSales, currentSale };
