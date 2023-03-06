@@ -1,4 +1,4 @@
-const { sales, users, sales_products: SalesProducts,
+const { sales, users, SalesProducts,
   products: Products } = require('../database/models');
 
 const newSales = async (body) => {
