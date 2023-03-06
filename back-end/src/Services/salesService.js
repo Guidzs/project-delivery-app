@@ -1,3 +1,6 @@
+const { sales, users, sales_products: SalesProducts,
+  products: Products } = require('../database/models');
+
 const newSales = async (body) => {
   const { products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
   // Pegar os ids do seller e customer que são entregues pelo app com o nome do usuário
