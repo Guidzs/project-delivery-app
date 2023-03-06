@@ -1,15 +1,15 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import OrderCompletion from '../components/OrderCompletion';
-import OrderDetails from '../components/OrderDetails';
+import CheckoutCompletion from '../components/CheckoutCompletion';
+import CheckoutDetails from '../components/CheckoutDetails';
 
 export default function CustomerCheckout() {
   return (
     <>
       <NavBar />
       <div className="CustomerCheckout">
-        <OrderCompletion />
-        <OrderDetails />
+        <CheckoutCompletion />
+        <CheckoutDetails />
       </div>
     </>
   );
