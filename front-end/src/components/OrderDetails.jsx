@@ -1,11 +1,11 @@
-import React, { useState, useEffect/* , useContext */ } from 'react';
-// import { useHistory } from 'react-router';
-// import context from '../context/Context';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router';
+import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 
 export default function OrderDetails() {
-  // const history = useHistory();
-  // const { cart } = useContext(context);
+  const history = useHistory();
+  const { cart, totalValueCart } = useContext(context);
 
   const [sellers, setSellers] = useState([]);
 
@@ -14,22 +14,49 @@ export default function OrderDetails() {
   const [addressNumber, setAddressNumber] = useState('');
 
   const salesConnection = async () => {
-    /* const result = axios.post(
-      '', // rota
-      {}, // body
-      // headers
-    )
-    console.log(result);
-    return result */
+    // { seller, products, customer, deliveryAddress, deliveryNumber }
+    const { token, name } = JSON.parse(localStorage.getItem('user'));
+    console.log('data:::: ', {
+      seller,
+      products: cart,
+      customer: name,
+      totalPrice: totalValueCart,
+      deliveryAddress: address,
+      deliveryNumber: addressNumber,
+    });
+
+    const response = await axios.post(
+      '/sales',
+      {
+        seller,
+        products: cart,
+        customer: name,
+        totalPrice: totalValueCart,
+        deliveryAddress: address,
+        deliveryNumber: addressNumber,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      },
+    );
+    // console.log('result: ', saleId);
+    const { message: saleId } = response.data;
+
+    // const saleId = result.data;
+    // const saleId = message;
+    console.log('saleId: ', saleId);
+    return saleId;
   };
 
-  const finishOrder = () => {
+  const finishOrder = async () => {
     // finalizar compras!
-    salesConnection();
-    // history.push(`/customer/orders/${}`);
+    const saleId = await salesConnection();
+    history.push(`/customer/orders/${saleId}`);
   };
 
-  console.log(sellers);
+  // console.log(sellers);
 
   // Buscar vendedores no BD
   useEffect(() => {
