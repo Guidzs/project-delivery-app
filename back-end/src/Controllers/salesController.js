@@ -1,4 +1,4 @@
-const { newSales, currentSale } = require('../Services/salesService');
+const { newSales, currentSale, getProductsSellerId } = require('../Services/salesService');
 const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
@@ -25,4 +25,10 @@ const getById = async (req, res) => {
   return res.status(201).json({ message: sale });
 };
 
-module.exports = { create, getById };
+const getProductsBySeller = async (req, res) => {
+  const { seller } = req.body;
+  const products = await getProductsSellerId(seller);
+  return res.status(201).json({ products });
+}
+
+module.exports = { create, getById, getProductsBySeller };
