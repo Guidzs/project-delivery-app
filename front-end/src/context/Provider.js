@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router';
+import validateJwt from '../utils/validateJwt';
 import Context from './Context';
 
 export default function Provider({ children }) {
+  const history = useHistory();
   const [cart, setCart] = useState([]);
   const [totalValueCart, setTotalValueCart] = useState(0);
 
@@ -42,11 +45,43 @@ export default function Provider({ children }) {
     setCart(copiaDoCarrinho);
   };
 
+  const redirectUserByLogin = () => {
+    const { role } = JSON.parse(localStorage.getItem('user'));
+    switch (role) {
+    case 'customer':
+      history.push('/customer/products');
+      break;
+    case 'seller':
+      history.push('/');
+      break;
+    case 'admin':
+      history.push('/');
+      break;
+    default:
+      history.push('page404');
+    }
+  };
+
+  const confirmCustomerInRoute = () => {
+    const { role, token } = JSON.parse(localStorage.getItem('user'));
+    const validateToken = validateJwt(token);
+    console.log(role, validateToken);
+  };
+
+  const confirmSellerInRoute = () => {
+    const { role, token } = JSON.parse(localStorage.getItem('user'));
+  };
+
+  const confirmAdminInRoute = () => {
+    const { role, token } = JSON.parse(localStorage.getItem('user'));
+  };
+
   const myContext = useMemo(() => ({
     cart,
     handleCart,
     totalValueCart,
     removeItemFromCart,
+    redirectUserByLogin,
   }), [cart, totalValueCart]);
 
   return (
