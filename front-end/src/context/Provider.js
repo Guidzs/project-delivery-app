@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router';
-import validateJwt from '../utils/validateJwt';
 import Context from './Context';
 
 export default function Provider({ children }) {
-  const history = useHistory();
   const [cart, setCart] = useState([]);
   const [totalValueCart, setTotalValueCart] = useState(0);
 
@@ -45,50 +42,24 @@ export default function Provider({ children }) {
     setCart(copiaDoCarrinho);
   };
 
-  const redirectUserByLogin = () => {
-    const { role } = JSON.parse(localStorage.getItem('user'));
-    switch (role) {
-    case 'customer':
-      history.push('/customer/products');
-      break;
-    case 'seller':
-      history.push('/');
-      break;
-    case 'admin':
-      history.push('/');
-      break;
-    default:
-      history.push('page404');
-    }
-  };
-
-  const confirmCustomerInRoute = () => {
-    const { role, token } = JSON.parse(localStorage.getItem('user'));
-    const validateToken = validateJwt(token);
-    console.log(role, validateToken);
-
-    if (role !== 'customer' || !!validateToken) {
-      history.push('/');
-    }
-  };
-
-  const confirmSellerInRoute = () => {
-    const { role, token } = JSON.parse(localStorage.getItem('user'));
-    const validateToken = validateJwt(token);
-    console.log(role, validateToken);
-
-    if (role !== 'seller' || !!validateToken) {
-      history.push('/');
-    }
-  };
-
-  const confirmAdminInRoute = () => {
-    const { role, token } = JSON.parse(localStorage.getItem('user'));
-    const validateToken = validateJwt(token);
-    console.log(role, validateToken);
-
-    if (role !== 'admin' || !!validateToken) {
-      history.push('/');
+  const RedirectUserByLogin = (history) => {
+    try {
+      const { role } = JSON.parse(localStorage.getItem('user'));
+      switch (role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/');
+        break;
+      case 'admin':
+        history.push('/');
+        break;
+      default:
+        console.log('Algo de errado não está certo!');
+      }
+    } catch (error) {
+      console.log('Usuário ainda não logado');
     }
   };
 
@@ -97,10 +68,7 @@ export default function Provider({ children }) {
     handleCart,
     totalValueCart,
     removeItemFromCart,
-    redirectUserByLogin,
-    confirmCustomerInRoute,
-    confirmSellerInRoute,
-    confirmAdminInRoute,
+    RedirectUserByLogin,
   }), [cart, totalValueCart]);
 
   return (

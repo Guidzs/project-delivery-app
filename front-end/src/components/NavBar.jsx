@@ -3,11 +3,13 @@ import { useHistory } from 'react-router';
 
 export default function NavBar() {
   const [profileName, setProfileName] = useState('');
+  const [profileRole, setProfileRole] = useState('');
   const history = useHistory();
 
   useEffect(() => {
-    const { name } = JSON.parse(localStorage.getItem('user'));
+    const { name, role } = JSON.parse(localStorage.getItem('user'));
     setProfileName(name);
+    setProfileRole(role);
   }, [null]);
 
   const logout = () => {

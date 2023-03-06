@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
+import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 import { validateFieldsLogin } from '../utils/validations';
 
@@ -10,6 +11,12 @@ export default function Login() {
 
   const [disabledButton, setDisabledButton] = useState(true);
   const [errorEnabled, setErrorEnabled] = useState(false);
+
+  const { RedirectUserByLogin } = useContext(context);
+
+  useEffect(() => {
+    RedirectUserByLogin(history);
+  }, [null]);
 
   useEffect(
     () => {
