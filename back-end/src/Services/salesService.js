@@ -1,6 +1,5 @@
-const { sales, users, sales_products: SalesProducts,
+const { sales, users, SalesProducts,
    products: Products } = require('../database/models');
-
    const newSales = async (body) => {
     const { seller, products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
     // Pegar os ids do seller e customer que são entregues pelo app com o nome do usuário
@@ -20,7 +19,7 @@ const { sales, users, sales_products: SalesProducts,
       // pegando o id de cada produto a partir do nome do produto
       const { dataValues: { id: productId } } = await Products.findOne({ where: { name } });
       // Inserindo dados na SalesProducts
-      await SalesProducts.create({ sale_id: saleId, product_id: productId, quantity });
+      await SalesProducts.create({ saleId: saleId, productId: productId, quantity });
     });
     return saleId;
   };
