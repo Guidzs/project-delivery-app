@@ -36,10 +36,10 @@ const currentSale = async (saleId) => {
   return { sale, seller };
 };
 
-const getProductsSellerId = async () => {;
+const getProductsSellerId = async () => {
   const sale = await sales.findAll();
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
   return response;
-}
+};
 
 module.exports = { newSales, currentSale, getProductsSellerId };

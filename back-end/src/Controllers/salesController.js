@@ -29,6 +29,6 @@ const getProductsBySeller = async (req, res) => {
   const { seller } = req.body;
   const products = await getProductsSellerId(seller);
   return res.status(201).json({ products });
-}
+};
 
 module.exports = { create, getById, getProductsBySeller };
