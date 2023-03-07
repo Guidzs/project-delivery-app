@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import CustomerProduct from '../components/CustomerProduct';
 import NavBar from '../components/NavBar';
 import ShoppingCart from '../components/ShoppingCart';
