@@ -4,15 +4,18 @@ import context from '../context/Context';
 
 export default function NavBar() {
   const { setCart } = useContext(context);
+
   const [profileName, setProfileName] = useState('');
   const [profileRole, setProfileRole] = useState('');
   const history = useHistory();
+
   const logout = () => {
     localStorage.clear(setCart);
     setCart([]);
     history.push('/');
   };
-  // Criando a diferenciação do componente para sellers, customers e admins
+
+  // Criando a diferenciação do componente para sellers, customerss e admins
   const customerNavBar = (
     <>
       <button
@@ -33,12 +36,13 @@ export default function NavBar() {
       </button>
     </>
   );
+
   const sellerNavBar = (
     <button
       type="button"
       className="customer_products__element-navbar-link-orders"
       data-testid="customer_products__element-navbar-link-orders"
-      onClick={ () => history.push('/seller/orders/:id') }
+      onClick={ () => history.push('/seller/orders') }
     >
       PEDIDOS
     </button>
@@ -49,6 +53,7 @@ export default function NavBar() {
       <div>...</div>
     </>
   );
+
   useEffect(() => {
     try {
       const { name, role } = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +63,7 @@ export default function NavBar() {
       logout();
     }
   }, [null]);
+
   return (
     <div className="navbar">
       { (profileRole === 'admin') && adminNavBar }

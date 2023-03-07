@@ -2,28 +2,21 @@ const { sales, users, SalesProducts,
   products: Products } = require('../database/models');
 
 const newSales = async (body) => {
-  const { products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
-  // Pegar os ids do seller e customer que são entregues pelo app com o nome do usuário
-  // const { dataValues: { id: sellerId } } = await users.findOne({ where: { name: seller } });
-  const { dataValues: { id: userId } } = await users.findOne({ where: { name: customer } });
-  // Inserir dados na tabela sales
-  const { dataValues: { id: saleId } } = await sales
-    .create({
-      userId,
-      sellerId: 2,
-      deliveryAddress,
-      deliveryNumber,
-      totalPrice,
-    });
-  // Inserir valores dentro da tabela SalesProducts. Pegamos os produtos e dispachamos 1 por 1.
+  try {
+    const { products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
+    const { dataValues: { id: userId } } = await users.findOne({ where: { name: customer } });
+    const { dataValues: { id: saleId } } = await sales
+    .create({ userId, sellerId: 2, deliveryAddress, deliveryNumber, totalPrice });
 
-  await products.map(async ({ name, quantity }) => {
-    // pegando o id de cada produto a partir do nome do produto
-    const { dataValues: { id: productId } } = await Products.findOne({ where: { name } });
-    // Inserindo dados na SalesProducts
-    await SalesProducts.create({ productId, saleId, quantity });
-  });
-  return saleId;
+    await products.map(async ({ name, quantity }) => {
+      const { dataValues: { id: productId } } = await Products.findOne({ where: { name } });
+      await SalesProducts.create({ productId, saleId, quantity });
+    });
+
+    return saleId;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const currentSale = async (saleId) => {
@@ -36,10 +29,28 @@ const currentSale = async (saleId) => {
   return { sale, seller };
 };
 
+const getAllSalesService = async () => {
+  try {
+    const data = await sales.findAll({
+      include: [
+        { model: Products, as: 'productsList' },
+        { model: users, as: 'user', attributes: ['name'] },
+        { model: users, as: 'seller', attributes: ['name'] },
+      ],
+    });
+
+    const allSales = data.map((d) => d.dataValues);
+
+    return { allSales };
+  } catch (error) {
+    console.log('Erro na getAllSalesService ---> ', error);
+  }
+};
+
 const getProductsSellerId = async () => {
   const sale = await sales.findAll();
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
   return response;
 };
 
-module.exports = { newSales, currentSale, getProductsSellerId };
+module.exports = { newSales, currentSale, getAllSalesService, getProductsSellerId };

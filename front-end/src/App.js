@@ -8,6 +8,8 @@ import CustomerCheckout from './pages/CustomerCheckout';
 import SellerOrder from './pages/SellerOrder';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrderDetails from './pages/SellerOrderDetails';
+import Page404 from './pages/Page404';
+import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
         <Route path="/customer/products" component={ CustomerProducts } />
         <Route path="/customer/checkout" component={ CustomerCheckout } />
         <Route path="/customer/orders/:saleId" component={ CustomerOrderDetails } />
+        <Route path="/customer/orders" component={ CustomerOrders } />
         <Route path="/seller/orders" component={ SellerOrder } />
         <Route path="/seller/orders/:saleId" component={ SellerOrderDetails } />
+        <Route component={ Page404 } />
       </Switch>
     </div>
   );
