@@ -21,7 +21,6 @@ export default function CustomerOrdersComponent() {
       const { data: { allSales } } = await axios.get('/sales', {
         headers: {
           Authorization: token,
-          'Content-Type': 'Application/json',
         },
       });
       setSales(allSales);
@@ -38,7 +37,7 @@ export default function CustomerOrdersComponent() {
         return (
           <CellCustomerOrderDetail
             key={ `${index}-sale` }
-            UUID={ id }
+            UUID={ sale.id }
             id={ newId }
             data={ sale.saleDate.split('T')[0].split('-').reverse().join('/') }
             status={ sale.status }

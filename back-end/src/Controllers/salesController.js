@@ -3,7 +3,6 @@ const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
   const { authorization } = req.headers;
-
   try {
     veryfyToken(authorization);
   } catch (error) {

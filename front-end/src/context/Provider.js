@@ -8,7 +8,7 @@ export default function Provider({ children }) {
 
   useEffect(() => {
     const total = cart.reduce((acc, prod) => acc + prod.price * prod.quantity, 0);
-    setTotalValueCart(total);
+    setTotalValueCart(Number(total.toFixed(2)));
 
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
