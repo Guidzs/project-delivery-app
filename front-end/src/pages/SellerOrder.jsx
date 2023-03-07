@@ -12,11 +12,11 @@ function SellerOrders() {
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get('/sales');
+      console.log(response.data.products);
       setOrders(response.data);
     };
     getOrders();
   }, [null]);
-
   return (
     <div>
       <Navbar />
@@ -24,7 +24,7 @@ function SellerOrders() {
         { orders === undefined
           ? <p> Loging... </p>
           : (
-            orders.map((order) => (
+            orders.products.map((order) => (
               <div key={ order.id } className="order_card">
                 <Link to={ `/seller/orders/${order.id}` }>
                   <p
