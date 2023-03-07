@@ -41,7 +41,7 @@ const getAllSalesService = async () => {
       include: [
         { model: Products, as: 'productsList' },
         { model: users, as: 'user', attributes: ['name'] },
-        { model: users, as: 'seller', attributes: ['name'] }
+        { model: users, as: 'seller', attributes: ['name'] },
       ],
     });
 
@@ -49,8 +49,8 @@ const getAllSalesService = async () => {
 
     return { allSales };
   } catch (error) {
-    console.log("Erro na getAllSalesService ---> ", error);
+    console.log('Erro na getAllSalesService ---> ', error);
   }
-}
+};
 
 module.exports = { newSales, currentSale, getAllSalesService };
