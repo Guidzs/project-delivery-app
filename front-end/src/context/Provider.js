@@ -47,6 +47,7 @@ export default function Provider({ children }) {
     handleCart,
     totalValueCart,
     removeItemFromCart,
+    setCart,
   }), [cart, totalValueCart]);
 
   return (
