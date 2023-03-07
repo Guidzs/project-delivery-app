@@ -5,8 +5,19 @@ import CellCustomerOrderDetail from './CellCustomerOrderDetail';
 export default function CustomerOrdersComponent() {
   const [sales, setSales] = useState([]);
 
+  const configureId = (id) => {
+    const ten = 10;
+    const hundred = 100;
+    const thousand = 1000;
+    if (id < ten) return `000${id}`;
+    if (id < hundred) return `00${id}`;
+    if (id < thousand) return `0${id}`;
+    return id;
+  };
+
   useEffect(() => {
     async function getAllSales() {
+      const { token } = JSON.parse(localStorage.getItem('user'));
       const { data: { allSales } } = await axios.get('/sales', {
         headers: {
           Authorization: token,
@@ -22,15 +33,18 @@ export default function CustomerOrdersComponent() {
     <div
       className="customer-orders-component"
     >
-      { sales.map((sale, index) => (
-        <CellCustomerOrderDetail
-          key={ `${index}-sale` }
-          id={ sale.id }
-          data={ sale.saleDate }
-          status={ sale.status }
-          totalPrice={ sale.totalPrice }
-        />
-      )) }
+      { sales.map((sale, index) => {
+        const newId = configureId(sale.id);
+        return (
+          <CellCustomerOrderDetail
+            key={ `${index}-sale` }
+            id={ newId }
+            data={ sale.saleDate.split('T')[0].split('-').reverse().join('/') }
+            status={ sale.status }
+            totalPrice={ `R$ ${sale.totalPrice.replace('.', ',')}` }
+          />
+        );
+      }) }
     </div>
   );
 }
