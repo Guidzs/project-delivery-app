@@ -15,7 +15,7 @@ export default function NavBar() {
     history.push('/');
   };
 
-  // Criando a diferenciação do componente para sellers, customers e admins
+  // Criando a diferenciação do componente para sellers, customerss e admins
   const customerNavBar = (
     <>
       <button
