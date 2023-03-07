@@ -42,6 +42,7 @@ export default function CustomerOrdersComponent() {
             data={ sale.saleDate.split('T')[0].split('-').reverse().join('/') }
             status={ sale.status }
             totalPrice={ `R$ ${sale.totalPrice.replace('.', ',')}` }
+            index={ index }
           />
         );
       }) }
