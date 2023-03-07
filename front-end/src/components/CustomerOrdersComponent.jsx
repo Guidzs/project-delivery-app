@@ -38,6 +38,7 @@ export default function CustomerOrdersComponent() {
         return (
           <CellCustomerOrderDetail
             key={ `${index}-sale` }
+            UUID={ id }
             id={ newId }
             data={ sale.saleDate.split('T')[0].split('-').reverse().join('/') }
             status={ sale.status }
