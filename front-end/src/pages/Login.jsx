@@ -42,8 +42,13 @@ export default function Login() {
       const { data } = response;
 
       localStorage.setItem('user', JSON.stringify(data));
-
-      history.push('/customer/products');
+      const { role } = JSON.parse(localStorage.getItem('user'));
+      if (role === 'customer') {
+        history.push('/customer/products');
+      }
+      if (role === 'seller') {
+        history.push('/seller/orders');
+      }
     } catch (error) {
       setErrorEnabled(true);
     }

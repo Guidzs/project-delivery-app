@@ -17,6 +17,7 @@ const newSales = async (body) => {
       deliveryNumber,
       totalPrice,
     });
+
     // Inserir valores dentro da tabela SalesProducts. Pegamos os produtos e dispachamos 1 por 1.
     await products.map(async ({ name, quantity }) => {
       // pegando o id de cada produto a partir do nome do produto
@@ -59,4 +60,12 @@ const getAllSalesService = async () => {
   }
 };
 
-module.exports = { newSales, currentSale, getAllSalesService };
+module.exports = { newSales, currentSale,  };
+
+const getProductsSellerId = async () => {
+  const sale = await sales.findAll();
+  const response = await sale.filter(({ sellerId }) => sellerId === 2);
+  return response;
+};
+
+module.exports = { newSales, currentSale, getAllSalesService, getProductsSellerId };

@@ -38,19 +38,22 @@ export default function NavBar() {
   );
 
   const sellerNavBar = (
-    <>
-      <div>RESPONSAVEL POR SELLER, FAVOR ATAULIZAR O NAVBAR DA FORMA ADEQUADA</div>
-      <div>...</div>
-    </>
+    <button
+      type="button"
+      className="customer_products__element-navbar-link-orders"
+      data-testid="customer_products__element-navbar-link-orders"
+      onClick={ () => history.push('/seller/orders') }
+    >
+      PEDIDOS
+    </button>
   );
-
   const adminNavBar = (
     <>
       <div>RESPONSAVEL POR ADMIN, FAVOR ATAULIZAR O NAVBAR DA FORMA ADEQUADA</div>
       <div>...</div>
     </>
   );
-
+  
   useEffect(() => {
     try {
       const { name, role } = JSON.parse(localStorage.getItem('user'));
@@ -72,7 +75,6 @@ export default function NavBar() {
       >
         { profileName }
       </div>
-
       <div>
         <button
           type="button"
