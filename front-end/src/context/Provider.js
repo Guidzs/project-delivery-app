@@ -65,6 +65,7 @@ export default function Provider({ children }) {
 
   const myContext = useMemo(() => ({
     cart,
+    setCart,
     handleCart,
     totalValueCart,
     removeItemFromCart,

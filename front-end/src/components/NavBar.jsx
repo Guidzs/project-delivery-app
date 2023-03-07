@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router';
+import context from '../context/Context';
 
 export default function NavBar() {
+  const { setCart } = useContext(context);
+
   const [profileName, setProfileName] = useState('');
   const [profileRole, setProfileRole] = useState('');
   const history = useHistory();
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.clear(setCart);
+    setCart([]);
     history.push('/');
   };
 
