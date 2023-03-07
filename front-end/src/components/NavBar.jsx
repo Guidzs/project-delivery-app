@@ -53,7 +53,7 @@ export default function NavBar() {
       <div>...</div>
     </>
   );
-  
+
   useEffect(() => {
     try {
       const { name, role } = JSON.parse(localStorage.getItem('user'));
