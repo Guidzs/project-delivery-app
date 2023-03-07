@@ -1,4 +1,5 @@
-const { newSales, currentSale, getAllSalesService, getProductsSellerId } = require('../Services/salesService');
+const { newSales, currentSale,
+  getAllSalesService, getProductsSellerId } = require('../Services/salesService');
 const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
