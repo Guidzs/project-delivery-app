@@ -23,6 +23,7 @@ export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
   const [value, setValue] = useState(false);
+  const [emTransito, setemTransito] = useState(false);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -41,22 +42,29 @@ export default function SellerOrderDetails() {
     getSales();
   }, [null]);
 
-  // const { token } = JSON.parse(localStorage.getItem('user'));
-
   useEffect(() => {
     const changeState = async () => {
       if (value) {
         await axios.put(`/sales/${saleId}`);
       }
+      console.log(sales.sale.status);
     };
     changeState();
   }, [value]);
+
+  useEffect(() => {
+    const changeState = async () => {
+      if (emTransito) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [emTransito]);
 
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
   const { id, status, productsList: products, saleDate, totalPrice } = sales.sale;
-  // const { name: seller } = sales.seller;
   return (
     <>
       <NavBar />
@@ -77,7 +85,7 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Preparando' }
+          disabled={ value }
           data-testid="seller_order_details__button-preparing-check"
           onClick={ () => setValue(!value) }
         >
@@ -85,9 +93,9 @@ export default function SellerOrderDetails() {
         </button>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          disabled={ emTransito }
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => console.log(sales.sale.status) }
+          onClick={ () => setemTransito(!emTransito) }
         >
           SAIU PARA ENTREGA
         </button>

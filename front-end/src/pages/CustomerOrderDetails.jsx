@@ -26,30 +26,16 @@ const ELEMENT = 'element-order-details-label';
 export default function OrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
+  const [value, setValue] = useState(false);
 
-  // body da requisição: {
-  //   seller,
-  // }
-
-  // body da requisição: {
-  //   seller,
-  //   produtos,
-  //   customer,
-  //   address,
-  //   addressNumber,
-  // };
-
-  // retorno: {
-  //   id,
-  //   sellerId,
-  //   userId,
-  //   totalPrice,
-  //   deliveryAddress,
-  //   deliveryNumber,
-  //   saleDate,
-  //   status,
-  //   products: EAGER_LOADING,
-  // };
+  useEffect(() => {
+    const changeState = async () => {
+      if (value) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [value]);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -104,7 +90,8 @@ export default function OrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          disabled={ !sales.sale.status === 'Em Trânsito' }
+          onClick={ () => setValue(!value) }
           data-testid="customer_order_details__button-delivery-check"
         >
           MARCAR COMO ENTREGUE

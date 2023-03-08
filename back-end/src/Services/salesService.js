@@ -57,10 +57,19 @@ const getAllSalesService = async () => {
     const sale = await sales.findByPk(saleId, {
       include: { model: Products, as: 'productsList' },
     });
-    await sales.update(
-      { status: 'Preparando' },
-      { where: {sellerId: sale.sellerId}})
-      console.log(sale);
+    const {dataValues } = sale;
+     if (dataValues.status === 'Pendente'){
+    await sales.update( { status: 'Preparando' },
+      { where: { sellerId: sale.sellerId}})
+    } if (dataValues.status === 'Preparando') {
+      await sales.update( { status: 'Em Trânsito' },
+      { where: { sellerId: sale.sellerId}})
+      if (dataValues.status === 'Em Trânsito') {
+        await sales.update( { status: 'Entregue' },
+        { where: { sellerId: sale.sellerId}})
+      }
+    }
+
   };
 
 
