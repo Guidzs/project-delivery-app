@@ -29,7 +29,7 @@ const currentSale = async (saleId) => {
   return { sale, seller };
 };
 
-const getAllSalesService = async () => {
+/* const getAllSalesService = async () => {
   try {
     const data = await sales.findAll({
       include: [
@@ -40,17 +40,17 @@ const getAllSalesService = async () => {
     });
 
     const allSales = data.map((d) => d.dataValues);
-
     return { allSales };
   } catch (error) {
     console.log('Erro na getAllSalesService ---> ', error);
   }
-};
+}; */
 
-const getProductsSellerId = async () => {
+ const getProductsSellerId = async () => {
   const sale = await sales.findAll();
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
+  console.log(sale);
   return response;
 };
 
-module.exports = { newSales, currentSale, getAllSalesService, getProductsSellerId };
+module.exports = { newSales, currentSale, getProductsSellerId };

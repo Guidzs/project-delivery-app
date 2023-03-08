@@ -12,7 +12,6 @@ function SellerOrders() {
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios.get('/sales');
-      console.log(response.data.products);
       setOrders(response.data);
     };
     getOrders();

@@ -38,6 +38,7 @@ export default function SellerOrderDetails() {
     };
     getSales();
   }, [null]);
+
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
