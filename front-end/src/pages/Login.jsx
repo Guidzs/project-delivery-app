@@ -8,6 +8,7 @@ import './Login.css';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [helpDev, setHelpDev] = useState(false);
   const history = useHistory();
 
   const [disabledButton, setDisabledButton] = useState(true);
@@ -56,72 +57,82 @@ export default function Login() {
   };
 
   return (
-    <div className="app-login">
-      <input
-        type="text"
-        placeholder="email"
-        value={ email }
-        onChange={ ({ target }) => setEmail(target.value) }
-        className="app-login__field"
-        data-testid="common_login__input-email"
-      />
+    <>
+      <div className="app-login__full-screen">
+        <div className="app-login">
+          <input
+            type="text"
+            placeholder="email"
+            value={ email }
+            onChange={ ({ target }) => setEmail(target.value) }
+            className="app-login__field"
+            data-testid="common_login__input-email"
+          />
 
-      <input
-        type="password"
-        placeholder="password"
-        value={ password }
-        onChange={ ({ target }) => setPassword(target.value) }
-        className="app-login__field"
-        data-testid="common_login__input-password"
-      />
+          <input
+            type="password"
+            placeholder="password"
+            value={ password }
+            onChange={ ({ target }) => setPassword(target.value) }
+            className="app-login__field"
+            data-testid="common_login__input-password"
+          />
 
-      {/* O botão precisa habilitar e desabilitar */}
+          {/* O botão precisa habilitar e desabilitar */}
 
-      <button
-        type="button"
-        onClick={ () => login() }
-        disabled={ disabledButton }
-        className="common_login__button-login"
-        data-testid="common_login__button-login"
-      >
-        LOGIN
-      </button>
-
-      <button
-        type="button"
-        onClick={ () => history.push('/register') }
-        className="common_login__button-register"
-        data-testid="common_login__button-register"
-      >
-        AINDA NÃO TENHO CONTA
-      </button>
-
-      {
-        (errorEnabled) && (
-          <p
-            className="common_login__element-invalid-email"
-            data-testid="common_login__element-invalid-email"
+          <button
+            type="button"
+            onClick={ () => login() }
+            disabled={ disabledButton }
+            className="common_login__button-login"
+            data-testid="common_login__button-login"
           >
-            Usuário inválido! Tente novamente.
-          </p>
-        )
-      }
+            LOGIN
+          </button>
 
-      <hr />
-      <h3>Admin</h3>
-      <p>email: adm@deliveryapp.com</p>
-      <p>senha: --adm2@21!!--</p>
+          <button
+            type="button"
+            onClick={ () => history.push('/register') }
+            className="common_login__button-register"
+            data-testid="common_login__button-register"
+          >
+            AINDA NÃO TENHO CONTA
+          </button>
 
-      <hr />
-      <h3>Seller</h3>
-      <p>email: fulana@deliveryapp.com</p>
-      <p>senha: fulana@123</p>
-
-      <hr />
-      <h3>Customer</h3>
-      <p>email: zebirita@email.com</p>
-      <p>senha: $#zebirita#$</p>
-
-    </div>
+          {
+            (errorEnabled) && (
+              <p
+                className="common_login__element-invalid-email"
+                data-testid="common_login__element-invalid-email"
+              >
+                Usuário inválido! Tente novamente.
+              </p>
+            )
+          }
+        </div>
+      </div>
+      <button
+        type="button"
+        className="help-dev"
+        onClick={ () => setHelpDev(!helpDev) }
+      >
+        CLICK DO DESENVOLVEDOR
+      </button>
+      { (helpDev) && (
+        <>
+          <h3>Admin</h3>
+          <p>email: adm@deliveryapp.com</p>
+          <p>senha: --adm2@21!!--</p>
+          <hr />
+          <h3>Seller</h3>
+          <p>email: fulana@deliveryapp.com</p>
+          <p>senha: fulana@123</p>
+          <hr />
+          <h3>Customer</h3>
+          <p>email: zebirita@email.com</p>
+          <p>senha: $#zebirita#$</p>
+        </>
+      ) }
+    </>
   );
 }

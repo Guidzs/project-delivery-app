@@ -1,5 +1,19 @@
 .app-login {
+  background-color: #eaf1ef;
+  border: 1px solid lightgray;
+  box-shadow: 0 0 4px lightgray;
   display: flex;
+  flex-direction: column;
+  height: 444px;
+  margin: 0 auto;
+  width: 425px;
+}
+
+.app-login__full-screen {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
 }
 
 .app-login__field {
