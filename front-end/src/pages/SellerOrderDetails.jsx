@@ -22,6 +22,7 @@ const ELEMENT = 'element-order-details-label';
 export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
+  const [value, setValue] = useState(false);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -40,20 +41,17 @@ export default function SellerOrderDetails() {
     getSales();
   }, [null]);
 
-  const changeState = async () => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+  // const { token } = JSON.parse(localStorage.getItem('user'));
 
-    try {
-      const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setSales(salesDB);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    const changeState = async () => {
+      if (value) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [value]);
+
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
@@ -79,15 +77,15 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.status === 'Pendente' }
+          disabled={ sales.sale.status === 'Preparando' }
           data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => changeState() }
+          onClick={ () => setValue(!value) }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          // disabled={ sales.status === 'Pendente' }
+          disabled={ sales.sale.status === 'Pendente' }
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => console.log(sales.sale.status) }
         >
