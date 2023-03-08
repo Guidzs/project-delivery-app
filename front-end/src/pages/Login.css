@@ -51,13 +51,14 @@
 .app-login__button-login {
   align-items: center;
   background-color: var(--color-green);
-  border: 2px solid var(--color-green);
+  border: none;
   border-radius: 5px;
   color: white;
   display: flex;
   font-size: 24px;
   height: 59px;
   justify-content: center;
+  transition: background-color 0.5s;
   width: 370px;
 }
 
@@ -72,4 +73,9 @@
   height: 59px;
   justify-content: center;
   width: 370px;
+}
+
+.app-login__button-login-disabled {
+  background-color: rgb(150, 165, 150);
+  transition: background-color 0.5s;
 }

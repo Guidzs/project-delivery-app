@@ -38,6 +38,7 @@ export default function Login() {
 
   const login = async () => {
     try {
+      console.log('amigo estou aqui');
       const response = await axios.post('/login', { email, password });
       console.log(response);
 
@@ -52,9 +53,13 @@ export default function Login() {
         history.push('/seller/orders');
       }
     } catch (error) {
+      console.log('Amigo Estou aqui!!!');
       setErrorEnabled(true);
     }
   };
+
+  const buttonLoginDisabledClass = (disabledButton)
+    ? 'app-login__button-login-disabled' : '';
 
   return (
     <>
@@ -98,7 +103,7 @@ export default function Login() {
             type="button"
             onClick={ () => login() }
             disabled={ disabledButton }
-            className="app-login__button-login"
+            className={ `app-login__button-login ${buttonLoginDisabledClass}` }
             data-testid="common_login__button-login"
           >
             Login
