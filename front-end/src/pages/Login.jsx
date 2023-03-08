@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 import { validateFieldsLogin } from '../utils/validations';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -55,13 +56,13 @@ export default function Login() {
   };
 
   return (
-    <div className="register">
+    <div className="app-login">
       <input
         type="text"
         placeholder="email"
         value={ email }
         onChange={ ({ target }) => setEmail(target.value) }
-        className="common_login__input-email"
+        className="app-login__field"
         data-testid="common_login__input-email"
       />
 
@@ -70,7 +71,7 @@ export default function Login() {
         placeholder="password"
         value={ password }
         onChange={ ({ target }) => setPassword(target.value) }
-        className="common_login__input-password"
+        className="app-login__field"
         data-testid="common_login__input-password"
       />
 
