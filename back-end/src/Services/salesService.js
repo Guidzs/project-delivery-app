@@ -29,7 +29,7 @@ const currentSale = async (saleId) => {
   return { sale, seller };
 };
 
-/* const getAllSalesService = async () => {
+const getAllSalesService = async () => {
   try {
     const data = await sales.findAll({
       include: [
@@ -38,13 +38,14 @@ const currentSale = async (saleId) => {
         { model: users, as: 'seller', attributes: ['name'] },
       ],
     });
-
+    console.log(data);
     const allSales = data.map((d) => d.dataValues);
+
     return { allSales };
   } catch (error) {
     console.log('Erro na getAllSalesService ---> ', error);
   }
-}; */
+};
 
  const getProductsSellerId = async () => {
   const sale = await sales.findAll();
@@ -53,4 +54,4 @@ const currentSale = async (saleId) => {
   return response;
 };
 
-module.exports = { newSales, currentSale, getProductsSellerId };
+module.exports = { newSales, currentSale, getProductsSellerId, getAllSalesService };

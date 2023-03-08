@@ -39,6 +39,10 @@ export default function SellerOrderDetails() {
     getSales();
   }, [null]);
 
+  /*   clickChange = () => {
+
+  } */
+
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
@@ -64,7 +68,7 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          disabled={ sales.sale.status !== 'Pendente' }
           data-testid="seller_order_details__button-preparing-check"
         >
           PREPARAR PEDIDO

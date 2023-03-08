@@ -1,5 +1,5 @@
 const { newSales, currentSale,
-   getProductsSellerId } = require('../Services/salesService');
+  getAllSalesService, getProductsSellerId } = require('../Services/salesService');
 const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
@@ -28,6 +28,7 @@ const getById = async (req, res) => {
 const getAllSalesController = async (req, res) => {
   const { authorization } = req.headers;
   try {
+    console.log(authorization);
     veryfyToken(authorization);
   } catch (error) {
     return res.status(409).json(error);
