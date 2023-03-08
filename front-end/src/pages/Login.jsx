@@ -46,11 +46,20 @@ export default function Login() {
 
       localStorage.setItem('user', JSON.stringify(data));
       const { role } = JSON.parse(localStorage.getItem('user'));
-      if (role === 'customer') {
+
+      switch (role) {
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
+      case 'customer':
         history.push('/customer/products');
-      }
-      if (role === 'seller') {
-        history.push('/seller/orders');
+        break;
+      case 'seller':
+        history.push('seller/orders');
+        break;
+      default:
+        console.log('erro!');
+        setErrorEnabled(true);
       }
     } catch (error) {
       console.log('Amigo Estou aqui!!!');
@@ -118,27 +127,29 @@ export default function Login() {
             Ainda Não Tenho Conta
           </button>
 
-          {
-            (errorEnabled) && (
-              <p
-                className="common_login__element-invalid-email"
-                data-testid="common_login__element-invalid-email"
-              >
-                Usuário inválido! Tente novamente.
-              </p>
-            )
-          }
         </div>
+        {
+          (errorEnabled) && (
+            <p
+              className="common_login__element-invalid-email"
+              data-testid="common_login__element-invalid-email"
+            >
+              Usuário inválido! Tente novamente.
+            </p>
+          )
+        }
       </div>
       <button
         type="button"
         className="help-dev"
         onClick={ () => setHelpDev(!helpDev) }
       >
-        CLICK DO DESENVOLVEDOR
+        CLICK DA MÁGICA
       </button>
       { (helpDev) && (
         <>
+          <h1>OCUS POCUS!!!</h1>
+          <hr />
           <h3>Admin</h3>
           <p>email: adm@deliveryapp.com</p>
           <p>senha: --adm2@21!!--</p>

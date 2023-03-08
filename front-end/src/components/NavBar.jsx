@@ -48,10 +48,14 @@ export default function NavBar() {
     </button>
   );
   const adminNavBar = (
-    <>
-      <div>RESPONSAVEL POR ADMIN, FAVOR ATAULIZAR O NAVBAR DA FORMA ADEQUADA</div>
-      <div>...</div>
-    </>
+    <button
+      type="button"
+      className="customer_products__element-navbar-link-orders"
+      data-testid="customer_products__element-navbar-link-orders"
+      onClick={ () => history.push('/admin/manage') }
+    >
+      GERENCIAR USUÁRIOS
+    </button>
   );
 
   useEffect(() => {
@@ -66,7 +70,7 @@ export default function NavBar() {
 
   return (
     <div className="navbar">
-      { (profileRole === 'admin') && adminNavBar }
+      { (profileRole === 'administrator') && adminNavBar }
       { (profileRole === 'customer') && customerNavBar }
       { (profileRole === 'seller') && sellerNavBar }
       <div
