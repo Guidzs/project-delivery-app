@@ -22,8 +22,8 @@ function App() {
         <Route path="/customer/checkout" component={ CustomerCheckout } />
         <Route path="/customer/orders/:saleId" component={ CustomerOrderDetails } />
         <Route path="/customer/orders" component={ CustomerOrders } />
+        <Route path="/seller/orders/:saleId" component={ SellerOrderDetails } />
         <Route exact path="/seller/orders" component={ SellerOrder } />
-        <Route exact path="/seller/orders/:saleId" component={ SellerOrderDetails } />
         <Route component={ Page404 } />
       </Switch>
     </div>

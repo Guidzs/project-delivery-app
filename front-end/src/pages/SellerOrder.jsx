@@ -28,44 +28,47 @@ function SellerOrders() {
                 <Link to={ `/seller/orders/${order.id}` }>
                   <p
                     data-testid={ `seller_orders__element-order-id-${order.id}` }
+
                   >
+                    {' '}
                     Pedido Nº
                     {' '}
                     {String(order.id).padStart(orderNumberLength, '0')}
                   </p>
+
+                  <p
+                    data-testid={ `seller_orders__element-delivery-status-${order.id}` }
+                  >
+                    <b>Status:</b>
+                    {' '}
+                    {order.status}
+                  </p>
+
+                  <p
+                    data-testid={ `seller_orders__element-order-date-${order.id}` }
+                  >
+                    <b>Data:</b>
+                    {' '}
+                    { moment(`${order.saleDate}`).format('DD/MM/YYYY') }
+                  </p>
+
+                  <p
+                    data-testid={ `seller_orders__element-card-price-${order.id}` }
+                  >
+                    <b>Valor Total:</b>
+                    {' '}
+                    {`R$ ${order.totalPrice.toString().replace('.', ',')}` }
+                  </p>
+
+                  <p
+                    data-testid={ `seller_orders__element-card-address-${order.id}` }
+                  >
+                    <b>Endereço de Entrega:</b>
+                    {' '}
+                    { `${order.deliveryAddress}, ${order.deliveryNumber}` }
+                  </p>
+
                 </Link>
-
-                <p
-                  data-testid={ `seller_orders__element-delivery-status-${order.id}` }
-                >
-                  <b>Status:</b>
-                  {' '}
-                  {order.status}
-                </p>
-
-                <p
-                  data-testid={ `seller_orders__element-order-date-${order.id}` }
-                >
-                  <b>Data:</b>
-                  {' '}
-                  { moment(`${order.saleDate}`).format('DD/MM/YYYY') }
-                </p>
-
-                <p
-                  data-testid={ `seller_orders__element-card-price-${order.id}` }
-                >
-                  <b>Valor Total:</b>
-                  {' '}
-                  {`R$ ${order.totalPrice.toString().replace('.', ',')}` }
-                </p>
-
-                <p
-                  data-testid={ `seller_orders__element-card-address-${order.id}` }
-                >
-                  <b>Endereço de Entrega:</b>
-                  {' '}
-                  { `${order.deliveryAddress}, ${order.deliveryNumber}` }
-                </p>
               </div>
             ))
           ) }

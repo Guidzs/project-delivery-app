@@ -1,5 +1,5 @@
 const { newSales, currentSale,
-  getAllSalesService, getProductsSellerId } = require('../Services/salesService');
+  getAllSalesService, getProductsSellerId, updateState } = require('../Services/salesService');
 const veryfyToken = require('../utils/auth/verifyToken');
 
 const create = async (req, res) => {
@@ -43,4 +43,10 @@ const getAllSalesController = async (req, res) => {
   return res.status(200).json({ products });
 };
 
-module.exports = { create, getById, getAllSalesController, getProductsBySeller };
+const update = async (req, res) => {
+const { saleId } = req.params;
+ const allSales = await updateState(saleId);
+return res.status(201).json(allSales);
+};
+
+module.exports = { create, getById, getAllSalesController, getProductsBySeller, update };

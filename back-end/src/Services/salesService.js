@@ -52,6 +52,16 @@ const getAllSalesService = async () => {
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
   console.log(sale);
   return response;
-};
+ }
+  const updateState = async (saleId) => {
+    const sale = await sales.findByPk(saleId, {
+      include: { model: Products, as: 'productsList' },
+    });
+    await sales.update(
+      { status: 'Preparando' },
+      { where: {sellerId: sale.sellerId}})
+      console.log(sale);
+  };
 
-module.exports = { newSales, currentSale, getProductsSellerId, getAllSalesService };
+
+module.exports = { newSales, currentSale, getProductsSellerId, getAllSalesService, updateState };

@@ -22,6 +22,7 @@ const ELEMENT = 'element-order-details-label';
 export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
+
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const getSales = async () => {
@@ -39,10 +40,20 @@ export default function SellerOrderDetails() {
     getSales();
   }, [null]);
 
-  /*   clickChange = () => {
+  const changeState = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
 
-  } */
-
+    try {
+      const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setSales(salesDB);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
@@ -68,15 +79,17 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status !== 'Pendente' }
+          disabled={ sales.status === 'Pendente' }
           data-testid="seller_order_details__button-preparing-check"
+          onClick={ () => changeState() }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          // disabled={ sales.status === 'Pendente' }
           data-testid="seller_order_details__button-dispatch-check"
+          onClick={ () => console.log(sales.sale.status) }
         >
           SAIU PARA ENTREGA
         </button>
