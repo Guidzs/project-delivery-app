@@ -60,23 +60,37 @@ export default function Login() {
     <>
       <div className="app-login__full-screen">
         <div className="app-login">
-          <input
-            type="text"
-            placeholder="email"
-            value={ email }
-            onChange={ ({ target }) => setEmail(target.value) }
-            className="app-login__field"
-            data-testid="common_login__input-email"
-          />
+          <label
+            htmlFor="common_login__input-email"
+            className="app-login__field-label"
+          >
+            Login
+            <input
+              id="common_login__input-email"
+              type="text"
+              placeholder="email"
+              value={ email }
+              onChange={ ({ target }) => setEmail(target.value) }
+              className="app-login__field"
+              data-testid="common_login__input-email"
+            />
+          </label>
 
-          <input
-            type="password"
-            placeholder="password"
-            value={ password }
-            onChange={ ({ target }) => setPassword(target.value) }
-            className="app-login__field"
-            data-testid="common_login__input-password"
-          />
+          <label
+            htmlFor="common_login__input-password"
+            className="app-login__field-label"
+          >
+            Senha
+            <input
+              id="common_login__input-password"
+              type="password"
+              placeholder="password"
+              value={ password }
+              onChange={ ({ target }) => setPassword(target.value) }
+              className="app-login__field"
+              data-testid="common_login__input-password"
+            />
+          </label>
 
           {/* O botão precisa habilitar e desabilitar */}
 
@@ -84,19 +98,19 @@ export default function Login() {
             type="button"
             onClick={ () => login() }
             disabled={ disabledButton }
-            className="common_login__button-login"
+            className="app-login__button-login"
             data-testid="common_login__button-login"
           >
-            LOGIN
+            Login
           </button>
 
           <button
             type="button"
             onClick={ () => history.push('/register') }
-            className="common_login__button-register"
+            className="app-login__button-register"
             data-testid="common_login__button-register"
           >
-            AINDA NÃO TENHO CONTA
+            Ainda Não Tenho Conta
           </button>
 
           {
