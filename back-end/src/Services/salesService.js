@@ -38,7 +38,7 @@ const getAllSalesService = async () => {
         { model: users, as: 'seller', attributes: ['name'] },
       ],
     });
-
+    console.log(data);
     const allSales = data.map((d) => d.dataValues);
 
     return { allSales };
@@ -47,10 +47,21 @@ const getAllSalesService = async () => {
   }
 };
 
-const getProductsSellerId = async () => {
+ const getProductsSellerId = async () => {
   const sale = await sales.findAll();
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
+  console.log(sale);
   return response;
-};
+ }
+  const updateState = async (saleId) => {
+    const sale = await sales.findByPk(saleId, {
+      include: { model: Products, as: 'productsList' },
+    });
+    await sales.update(
+      { status: 'Preparando' },
+      { where: {sellerId: sale.sellerId}})
+      console.log(sale);
+  };
 
-module.exports = { newSales, currentSale, getAllSalesService, getProductsSellerId };
+
+module.exports = { newSales, currentSale, getProductsSellerId, getAllSalesService, updateState };

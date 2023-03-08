@@ -18,11 +18,11 @@ export default function CustomerOrdersComponent() {
   useEffect(() => {
     async function getAllSales() {
       const { token } = JSON.parse(localStorage.getItem('user'));
-      const { data: { allSales } } = await axios.get('/sales', {
+      const { data: { allSales } } = await axios.get('/sales/order', {
         headers: {
           Authorization: token,
         },
-      });
+      }); console.log(allSales);
       setSales(allSales);
     }
     getAllSales();

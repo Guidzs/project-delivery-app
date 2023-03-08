@@ -50,7 +50,7 @@ export default function Provider({ children }) {
         history.push('/customer/products');
         break;
       case 'seller':
-        history.push('/');
+        history.push('/seller/orders');
         break;
       case 'admin':
         history.push('/');

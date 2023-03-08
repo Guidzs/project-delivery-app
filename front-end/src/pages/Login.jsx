@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
-import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
 import { validateFieldsLogin } from '../utils/validations';
 import './Login.css';
+import context from '../context/Context';
 
 export default function Login() {
   const [email, setEmail] = useState('');
