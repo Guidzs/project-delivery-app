@@ -15,8 +15,19 @@ export default function AdminRegisterNewUser() {
     setType(userType[roleType]);
   };
 
-  const register = () => {
-
+  const register = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const response = await axios.post(
+      '/admin/register',
+      {
+        name: nome,
+        email,
+        password,
+        role: type,
+      },
+      { headers: { authorization: token } },
+    );
+    console.log(response);
   };
 
   return (
