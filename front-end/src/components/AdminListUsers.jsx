@@ -1,29 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../utils/connectionDatabase';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AdminUserListComponent from './AdminUserListComponent';
 
-export default function AdminListUsers() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const getAllUsers = async () => {
-      try {
-        const { token } = JSON.parse(localStorage.getItem('user'));
-        const { data } = await axios.get(
-          '/admin/get/userlist',
-          { headers: { authorization: token } },
-        );
-
-        setUsers([...data]);
-      } catch (error) {
-        console.log(error);
-        setUsers([]);
-      }
-    };
-
-    getAllUsers();
-  }, [null]);
-
+export default function AdminListUsers({ users, handleUser }) {
   return (
     <table className="app-admin-manage__users-list">
       <thead>
@@ -45,6 +24,7 @@ export default function AdminListUsers() {
               index={ index }
               name={ user.name }
               role={ user.role }
+              handleUser={ handleUser }
             />
           ))
         }
@@ -52,3 +32,8 @@ export default function AdminListUsers() {
     </table>
   );
 }
+
+AdminListUsers.propTypes = {
+  users: PropTypes.number.isRequired,
+  handleUser: PropTypes.string.isRequired,
+};

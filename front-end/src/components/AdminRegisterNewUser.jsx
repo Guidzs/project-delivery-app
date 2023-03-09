@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { validateFieldsRegister } from '../utils/validations';
 import axios from '../utils/connectionDatabase';
 
-export default function AdminRegisterNewUser() {
+export default function AdminRegisterNewUser({ handleUser }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +48,7 @@ export default function AdminRegisterNewUser() {
         { headers: { authorization: token } },
       );
       console.log(response);
+      handleUser();
     } catch (error) {
       console.log(error);
       setErrorEnabled(true);
@@ -145,3 +147,7 @@ export default function AdminRegisterNewUser() {
     </>
   );
 }
+
+AdminRegisterNewUser.propTypes = {
+  handleUser: PropTypes.string.isRequired,
+};
