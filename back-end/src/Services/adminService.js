@@ -36,7 +36,7 @@ const removeUserService = async (id) => {
 };
 
 const getAllUsersListService = async () => {
-  const response = await users.findAll();
+  const response = await users.findAll({ where: { role: ['customer', 'seller'] } });
   return response;
 };
 
