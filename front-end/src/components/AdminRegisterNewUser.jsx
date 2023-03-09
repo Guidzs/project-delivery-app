@@ -25,15 +25,6 @@ export default function AdminRegisterNewUser({ handleUser }) {
     validate();
   }, [nome, password, email]);
 
-  const handleType = (roleType) => {
-    const userType = {
-      vendedor: 'seller',
-      cliente: 'customer',
-    };
-
-    setType(userType[roleType]);
-  };
-
   const register = async () => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
@@ -119,10 +110,10 @@ export default function AdminRegisterNewUser({ handleUser }) {
             id="admin_manage__select-role"
             className="app-admin__field"
             data-testid="admin_manage__select-role"
-            onChange={ ({ target }) => handleType(target.value) }
+            onChange={ ({ target }) => setType(target.value) }
           >
-            <option>vendedor</option>
-            <option>cliente</option>
+            <option value="seller">vendedor</option>
+            <option value="customer">cliente</option>
           </select>
         </label>
 
@@ -131,6 +122,7 @@ export default function AdminRegisterNewUser({ handleUser }) {
           data-testid="admin_manage__button-register"
           onClick={ () => register() }
           className={ buttonClass }
+          disabled={ buttonDisabled }
         >
           CADASTRAR
         </button>
@@ -139,6 +131,7 @@ export default function AdminRegisterNewUser({ handleUser }) {
         errorEnabled && (
           <p
             className="app-admin-manage__error-message"
+            data-testid="admin_manage__element-invalid-register"
           >
             Dados Inválidos! Tente outro email ou senha.
           </p>
