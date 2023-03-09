@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+
+  --color-green: rgb(22, 73, 22);
+}
+
+.app-login {
+  align-items: center;
+  background-color: #eaf1ef;
+  border: 1px solid lightgray;
+  box-shadow: 0 0 4px lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 444px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 425px;
+}
+
+.app-login__full-screen {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.app-login__field {
+  border: 1px gray solid;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px gray;
+  font-size: 16px;
+  height: 60px;
+  padding: 10px;
+  width: 371px;
+}
+
+.app-login__field-label {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  font-size: 20px;
+  gap: 10px;
+  width: 371px;
+}
+
+.app-login__button-login {
+  align-items: center;
+  background-color: var(--color-green);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  font-size: 24px;
+  height: 59px;
+  justify-content: center;
+  transition: background-color 0.5s;
+  width: 370px;
+}
+
+.app-login__button-register {
+  align-items: center;
+  background-color: #eaf1ef;
+  border: 2px solid var(--color-green);
+  border-radius: 5px;
+  color: var(--color-green);
+  display: flex;
+  font-size: 24px;
+  height: 59px;
+  justify-content: center;
+  width: 370px;
+}
+
+.app-login__button-login-disabled {
+  background-color: rgb(150, 165, 150);
+  transition: background-color 0.5s;
+}
