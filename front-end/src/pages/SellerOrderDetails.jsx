@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../utils/connectionDatabase';
-
 import NavBar from '../components/NavBar';
 
 const formatAsCurrency = (number) => new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
 }).format(number);
-
 const formatDate = (date) => {
   const newDate = new Date(date);
   const day = newDate.getDate().toString().length === 1
@@ -19,24 +17,13 @@ const formatDate = (date) => {
     : newDate.getMonth() + 1;
   return `${day}/${month}/${newDate.getFullYear()}`;
 };
-
-const ROUTE = 'customer_order_details';
+const ROUTE = 'seller_order_details';
 const ELEMENT = 'element-order-details-label';
-
-export default function OrderDetails() {
+export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
-
-  const [value, setValue] = useState(false);
-
-  useEffect(() => {
-    const changeState = async () => {
-      if (value === true) {
-        await axios.put(`customer/sales/${saleId}`);
-      }
-    };
-    changeState();
-  }, [value]);
+  const [preprarar, setPreparar] = useState(false);
+  const [emTransito, setemTransito] = useState(false);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -45,10 +32,8 @@ export default function OrderDetails() {
         const { data: { message: salesDB } } = await axios.get(`/sales/${saleId}`, {
           headers: {
             Authorization: token,
-            'Content-Type': 'Application/json',
           },
         });
-        console.log('response: ', salesDB);
         setSales(salesDB);
       } catch (err) {
         console.log(err);
@@ -57,31 +42,39 @@ export default function OrderDetails() {
     getSales();
   }, [null]);
 
+  useEffect(() => {
+    const changeState = async () => {
+      if (preprarar) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [preprarar]);
+
+  useEffect(() => {
+    const changeState = async () => {
+      if (emTransito) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [emTransito]);
+
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
-
   const { id, status, productsList: products, saleDate, totalPrice } = sales.sale;
-  const { name: seller } = sales.seller;
-
   return (
     <>
-      { console.log(sales) }
-      { console.log('sales') }
       <NavBar />
       {/* ORDER INFO  */}
       <div>
-        <h2 data-testid="customer_order_details__element-order-details-label-order-id">
+        <h2 data-testid="seller_order_details__element-order-details-label-order-id">
           Pedido
           {' '}
           {id}
         </h2>
-        <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          P. Vend:
-          {' '}
-          {seller}
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-order-date">
+        <p data-testid="seller_order_details__element-order-details-label-order-date">
           {formatDate(saleDate)}
         </p>
         <p
@@ -91,14 +84,25 @@ export default function OrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
-          onClick={ () => setValue(!value) }
-          data-testid="customer_order_details__button-delivery-check"
+          disabled={ sales.sale.status === 'Preparando'
+          || sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Entregue' }
+          data-testid="seller_order_details__button-preparing-check"
+          onClick={ () => setPreparar(!preprarar) }
         >
-          MARCAR COMO ENTREGUE
+          PREPARAR PEDIDO
+        </button>
+        <button
+          type="button"
+          disabled={ sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Pendente'
+          || sales.sale.status === 'Entregue' }
+          data-testid="seller_order_details__button-dispatch-check"
+          onClick={ () => setemTransito(!emTransito) }
+        >
+          SAIU PARA ENTREGA
         </button>
       </div>
-
       {/* PRODUCT LIST */}
       <table>
         <thead>
@@ -121,35 +125,35 @@ export default function OrderDetails() {
                 <tr key={ productId }>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-item-number-${index}`
+                      `seller_order_details__element-order-table-item-number-${index}`
                     }
                   >
                     {index + 1}
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-name-${index}`
+                      `seller_order_details__element-order-table-name-${index}`
                     }
                   >
                     {name}
                   </td>
                   <td
                     data-testid={
-                      `customer_order__element-order-table-quantity-${index}`
+                      `seller_order__element-order-table-quantity-${index}`
                     }
                   >
                     {quantity}
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-unit-price-${index}`
+                      `seller_order_details__element-order-table-unit-price-${index}`
                     }
                   >
                     {formatAsCurrency(price.replace(',', '.'))}
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-sub-total-${index}`
+                      `seller_order_details__element-order-table-sub-total-${index}`
                     }
                   >
                     {formatAsCurrency(
@@ -160,15 +164,13 @@ export default function OrderDetails() {
               );
             })
           }
-
         </tbody>
       </table>
-
       {/* TOTAL PRICE */}
       <div>
         <h2>Total: </h2>
         {' '}
-        <h2 data-testid="customer_order_details__element-order-total-price">
+        <h2 data-testid="seller_order_details__element-order-total-price">
           {formatAsCurrency(totalPrice)}
         </h2>
       </div>

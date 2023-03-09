@@ -1,0 +1,13 @@
+.app-register {
+  align-items: center;
+  background-color: #eaf1ef;
+  border: 1px solid lightgray;
+  box-shadow: 0 0 4px lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 508px;
+  justify-content: center;
+  margin: 0 auto;
+  width: 425px;
+}
