@@ -22,7 +22,8 @@ const ELEMENT = 'element-order-details-label';
 export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
-  const [value, setValue] = useState(false);
+  const [preprarar, setPreparar] = useState(false);
+  const [emTransito, setemTransito] = useState(false);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -41,22 +42,28 @@ export default function SellerOrderDetails() {
     getSales();
   }, [null]);
 
-  // const { token } = JSON.parse(localStorage.getItem('user'));
-
   useEffect(() => {
     const changeState = async () => {
-      if (value) {
+      if (preprarar) {
         await axios.put(`/sales/${saleId}`);
       }
     };
     changeState();
-  }, [value]);
+  }, [preprarar]);
+
+  useEffect(() => {
+    const changeState = async () => {
+      if (emTransito) {
+        await axios.put(`/sales/${saleId}`);
+      }
+    };
+    changeState();
+  }, [emTransito]);
 
   if (sales.length === 0) {
     return <h1>Loading...</h1>;
   }
   const { id, status, productsList: products, saleDate, totalPrice } = sales.sale;
-  // const { name: seller } = sales.seller;
   return (
     <>
       <NavBar />
@@ -77,17 +84,21 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Preparando' }
+          disabled={ sales.sale.status === 'Preparando'
+          || sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Entregue' }
           data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => setValue(!value) }
+          onClick={ () => setPreparar(!preprarar) }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          disabled={ sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Pendente'
+          || sales.sale.status === 'Entregue' }
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => console.log(sales.sale.status) }
+          onClick={ () => setemTransito(!emTransito) }
         >
           SAIU PARA ENTREGA
         </button>
