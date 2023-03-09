@@ -9,6 +9,7 @@ const insertUserController = async (req, res) => { // função de controle de in
     const response = await insertUserService(req.body);
     res.status(201).json(response);
   } catch (error) {
+    res.status(409).json('ERROR!')
     console.log(error);
   }
 };

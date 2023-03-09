@@ -34,18 +34,23 @@ export default function AdminRegisterNewUser() {
   };
 
   const register = async () => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await axios.post(
-      '/admin/register/newuser',
-      {
-        name: nome,
-        email,
-        password,
-        role: type,
-      },
-      { headers: { authorization: token } },
-    );
-    console.log(response);
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const response = await axios.post(
+        '/admin/register/newuser',
+        {
+          name: nome,
+          email,
+          password,
+          role: type,
+        },
+        { headers: { authorization: token } },
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setErrorEnabled(true);
+    }
   };
 
   const buttonClass = (buttonDisabled)

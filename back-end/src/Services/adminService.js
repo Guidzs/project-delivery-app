@@ -2,25 +2,21 @@ const { users } = require('../database/models');
 const md5 = require('md5');
 
 const insertUserService = async ({ name, role, password, email }) => {
-  try {
-    const hash = md5(password);
-    const verifyByEmail = await users.findOne({ where: { email } });
-    const verifyByName = await users.findOne({ where: { name } });
+  const hash = md5(password);
+  const verifyByEmail = await users.findOne({ where: { email } });
+  const verifyByName = await users.findOne({ where: { name } });
 
-    if (verifyByEmail || verifyByName) {
-      console.log('Já existe essa pessoa cadastrada');
-      throw new HttpException(409, 'Conflict');
-    }
-    if (role !== 'customer' && role !== 'seller') {
-      console.log('Cadastre um usuário que seja vendedor ou cliente');
-      throw new HttpException(409, 'Conflict');
-    }
-
-    const user = await users.create({ name, email, password: hash, role });
-    return user;
-  } catch (error) {
-    console.log(error);
+  if (verifyByEmail || verifyByName) {
+    console.log('Já existe essa pessoa cadastrada');
+    throw new HttpException(409, 'Conflict');
   }
+  if (role !== 'customer' && role !== 'seller') {
+    console.log('Cadastre um usuário que seja vendedor ou cliente');
+    throw new HttpException(409, 'Conflict');
+  }
+
+  const user = await users.create({ name, email, password: hash, role });
+  return user;
 };
 
 const removeUserService = async (id) => {
