@@ -6,11 +6,11 @@ export default function AdminListUsers() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getAllUsers = async () => {
+    const getAllUsers = async () => {
       try {
         const { token } = JSON.parse(localStorage.getItem('user'));
         const { data } = await axios.get(
-          '/admin/get/users/list',
+          '/admin/get/userlist',
           { headers: { authorization: token } },
         );
 
