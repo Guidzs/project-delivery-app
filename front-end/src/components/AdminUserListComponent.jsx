@@ -16,9 +16,9 @@ export default function AdminUserListComponent({ index, id, name, email, role })
     <tr className="app-admin-manage__users-list__item">
       <td
         className="app-admin-manage__users-list__item-id"
-        data-testid={ `admin_manage__element-user-table-item-number-${id}` }
+        data-testid={ `admin_manage__element-user-table-item-number-${index + 1}` }
       >
-        { id }
+        { index + 1}
       </td>
 
       <td
@@ -30,14 +30,14 @@ export default function AdminUserListComponent({ index, id, name, email, role })
 
       <td
         className="app-admin-manage__users-list__item-email"
-        data-testid={ `admin_manage__element-user-table-email-${id}` }
+        data-testid={ `admin_manage__element-user-table-email-${index + 1}` }
       >
         { email }
       </td>
 
       <td
         className="app-admin-manage__users-list__item-role"
-        data-testid={ `admin_manage__element-user-table-role-${id}` }
+        data-testid={ `admin_manage__element-user-table-role-${index + 1}` }
       >
         { role }
       </td>
@@ -45,7 +45,7 @@ export default function AdminUserListComponent({ index, id, name, email, role })
       <td>
         <button
           className="app-admin-manage__users-list__item-rm"
-          data-testid={ `admin_manage__element-user-table-remove-${id}` }
+          data-testid={ `admin_manage__element-user-table-remove-${index + 1}` }
           onClick={ () => removeUser() }
           type="button"
         >
