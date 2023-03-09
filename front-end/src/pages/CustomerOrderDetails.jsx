@@ -26,11 +26,12 @@ const ELEMENT = 'element-order-details-label';
 export default function OrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
+
   const [value, setValue] = useState(false);
 
   useEffect(() => {
     const changeState = async () => {
-      if (value) {
+      if (value === true) {
         await axios.put(`customer/sales/${saleId}`);
       }
     };
@@ -90,7 +91,7 @@ export default function OrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ !sales.sale.status === 'Em Trânsito' }
+          disabled={ sales.sale.status === 'Pendente' }
           onClick={ () => setValue(!value) }
           data-testid="customer_order_details__button-delivery-check"
         >

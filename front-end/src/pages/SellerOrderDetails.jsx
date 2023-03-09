@@ -22,7 +22,7 @@ const ELEMENT = 'element-order-details-label';
 export default function SellerOrderDetails() {
   const [sales, setSales] = useState([]);
   const { saleId } = useParams();
-  const [value, setValue] = useState(false);
+  const [preprarar, setPreparar] = useState(false);
   const [emTransito, setemTransito] = useState(false);
 
   useEffect(() => {
@@ -44,12 +44,12 @@ export default function SellerOrderDetails() {
 
   useEffect(() => {
     const changeState = async () => {
-      if (value) {
+      if (preprarar) {
         await axios.put(`/sales/${saleId}`);
       }
     };
     changeState();
-  }, [value]);
+  }, [preprarar]);
 
   useEffect(() => {
     const changeState = async () => {
@@ -85,16 +85,18 @@ export default function SellerOrderDetails() {
         <button
           type="button"
           disabled={ sales.sale.status === 'Preparando'
-          || sales.sale.status === 'Em Trânsito' }
+          || sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Entregue' }
           data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => setValue(!value) }
+          onClick={ () => setPreparar(!preprarar) }
         >
           PREPARAR PEDIDO
         </button>
         <button
           type="button"
           disabled={ sales.sale.status === 'Em Trânsito'
-          || sales.sale.status === 'Pendente' }
+          || sales.sale.status === 'Pendente'
+          || sales.sale.status === 'Entregue' }
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => setemTransito(!emTransito) }
         >
