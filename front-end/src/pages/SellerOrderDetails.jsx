@@ -47,7 +47,6 @@ export default function SellerOrderDetails() {
       if (value) {
         await axios.put(`/sales/${saleId}`);
       }
-      console.log(sales.sale.status);
     };
     changeState();
   }, [value]);
@@ -85,7 +84,8 @@ export default function SellerOrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ value }
+          disabled={ sales.sale.status === 'Preparando'
+          || sales.sale.status === 'Em Trânsito' }
           data-testid="seller_order_details__button-preparing-check"
           onClick={ () => setValue(!value) }
         >
@@ -93,7 +93,8 @@ export default function SellerOrderDetails() {
         </button>
         <button
           type="button"
-          disabled={ emTransito }
+          disabled={ sales.sale.status === 'Em Trânsito'
+          || sales.sale.status === 'Pendente' }
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => setemTransito(!emTransito) }
         >
