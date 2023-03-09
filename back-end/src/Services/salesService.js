@@ -9,7 +9,7 @@ const newSales = async (body) => {
     const { products, customer, deliveryAddress, deliveryNumber, totalPrice } = body;
     const { dataValues: { id: userId },
     } = await users.findOne({ where: { name: customer } });
-    const { dataValues: { id: saleId }, } = await sales.create({
+    const { dataValues: { id: saleId } } = await sales.create({
       userId,
       sellerId: 2,
       deliveryAddress,
