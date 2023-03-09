@@ -9,7 +9,7 @@ const insertUserController = async (req, res) => { // função de controle de in
     const response = await insertUserService(req.body);
     res.status(201).json(response);
   } catch (error) {
-    res.status(409).json('ERROR!')
+    res.status(409).json('ERROR!');
     console.log(error);
   }
 };
@@ -28,7 +28,7 @@ const removeUserController = async (req, res) => { // função de controle de re
 
 const getAllUsersListController = async (_req, res) => { // função de controle de exibição da lista de todos os usuários do banco de dados
   try {
-    console.log('amigo estou aqui!')
+    console.log('amigo estou aqui!');
     const response = await getAllUsersListService();
     res.status(200).json(response);
   } catch (error) {

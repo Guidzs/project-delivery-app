@@ -1,5 +1,6 @@
-const { users } = require('../database/models');
 const md5 = require('md5');
+const { users } = require('../database/models');
+const HttpException = require('../utils/HttpError');
 
 const insertUserService = async ({ name, role, password, email }) => {
   const hash = md5(password);

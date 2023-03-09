@@ -12,7 +12,6 @@ const {
 
 // SOMENTE IMPORTAÇõES DA APLICAÇÃO ACIMA
 
-
 const router = express.Router(); // criação do router
 router.get('/get/userlist', adminVerifyJwt, getAllUsersListController); // declaração de rota get('/admin/get/userlist')
 router.delete('/remove/user/:id', adminVerifyJwt, removeUserController); // declaração da rota delete('/admin/remove/user/:id')

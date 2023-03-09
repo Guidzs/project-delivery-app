@@ -30,7 +30,7 @@ app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', userRoutes);
 app.use('/sales', salesRouter);
-app.use('/admin', adminRoutes)
+app.use('/admin', adminRoutes);
 app.use(errorMiddleware);
 
 module.exports = app;
