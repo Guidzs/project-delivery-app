@@ -26,7 +26,7 @@ export default function AdminUserListComponent({
 
       <td
         className="app-admin-manage__users-list__item-name"
-        data-testid="admin_manage__input-email"
+        data-testid={ `admin_manage__element-user-table-name-${index + 1}` }
       >
         { name }
       </td>
