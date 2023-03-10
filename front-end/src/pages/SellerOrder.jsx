@@ -22,7 +22,7 @@ function SellerOrders() {
       <div>
         { orders === undefined
           ? <p> Loging... </p>
-          : (
+          : ( // oi
             orders.products.map((order) => (
               <div key={ order.id } className="order_card">
                 <Link to={ `/seller/orders/${order.id}` }>
