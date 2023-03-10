@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import moment from 'moment/moment';
-
 import Navbar from '../components/NavBar';
 import axios from '../utils/connectionDatabase';
 
