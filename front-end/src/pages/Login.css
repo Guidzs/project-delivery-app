@@ -26,6 +26,7 @@
 .app-login__full-screen {
   align-items: center;
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
 }
@@ -46,6 +47,7 @@
   font-family: sans-serif;
   font-size: 20px;
   gap: 10px;
+  width: 371px;
 }
 
 .app-login__button-login {
@@ -78,4 +80,57 @@
 .app-login__button-login-disabled {
   background-color: rgb(150, 165, 150);
   transition: background-color 0.5s;
+}
+
+.help-dev-button {
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid var(--color-green);
+  border-radius: 5px;
+  color: var(--color-green);
+  display: flex;
+  font-size: 24px;
+  height: 59px;
+  justify-content: center;
+  margin: 30px auto;
+  width: 370px;
+}
+
+.help-dev-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  justify-content: center;
+  width: 400px;
+}
+
+.help-dev-content-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.help-dev-magica {
+  align-items: center;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  overflow: hidden;
+  width: 300px;
+}
+
+.help-dev-magica img {
+  width: 500px;
+}
+
+.help-dev-row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

@@ -30,7 +30,7 @@ export default function Register() {
   const register = async () => {
     try {
       const { data } = await axios
-        .post('/register', { name, email, password, role: 'costumer' });
+        .post('/register', { name, email, password, role: 'customer' });
 
       localStorage.setItem('user', JSON.stringify(data));
 
@@ -94,8 +94,6 @@ export default function Register() {
             data-testid="common_register__input-password"
           />
         </label>
-
-        {/* O botão precisa habilitar e desabilitar */}
 
         <button
           type="button"

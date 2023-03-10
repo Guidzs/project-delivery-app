@@ -10,6 +10,7 @@ import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrderDetails from './pages/SellerOrderDetails';
 import Page404 from './pages/Page404';
 import CustomerOrders from './pages/CustomerOrders';
+import AdminManage from './pages/AdminManage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/customer/orders" component={ CustomerOrders } />
         <Route path="/seller/orders/:saleId" component={ SellerOrderDetails } />
         <Route exact path="/seller/orders" component={ SellerOrder } />
+        <Route path="/admin/manage" component={ AdminManage } />
         <Route component={ Page404 } />
       </Switch>
     </div>

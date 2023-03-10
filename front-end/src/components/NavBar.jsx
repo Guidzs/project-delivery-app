@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router';
 import context from '../context/Context';
+import './NavBar.css';
 
 export default function NavBar() {
   const { setCart } = useContext(context);
@@ -20,7 +21,7 @@ export default function NavBar() {
     <>
       <button
         type="button"
-        className="customer_products__element-navbar-link-products"
+        className="navbar-button"
         data-testid="customer_products__element-navbar-link-products"
         onClick={ () => history.push('/customer/products') }
       >
@@ -28,7 +29,7 @@ export default function NavBar() {
       </button>
       <button
         type="button"
-        className="customer_products__element-navbar-link-orders"
+        className="navbar-button"
         data-testid="customer_products__element-navbar-link-orders"
         onClick={ () => history.push('/customer/orders') }
       >
@@ -40,18 +41,23 @@ export default function NavBar() {
   const sellerNavBar = (
     <button
       type="button"
-      className="customer_products__element-navbar-link-orders"
+      className="navbar-button"
       data-testid="customer_products__element-navbar-link-orders"
       onClick={ () => history.push('/seller/orders') }
     >
       PEDIDOS
     </button>
   );
+
   const adminNavBar = (
-    <>
-      <div>RESPONSAVEL POR ADMIN, FAVOR ATAULIZAR O NAVBAR DA FORMA ADEQUADA</div>
-      <div>...</div>
-    </>
+    <button
+      type="button"
+      className="navbar-button"
+      data-testid="customer_products__element-navbar-link-orders"
+      onClick={ () => history.push('/admin/manage') }
+    >
+      GERENCIAR USUÁRIOS
+    </button>
   );
 
   useEffect(() => {
@@ -66,24 +72,28 @@ export default function NavBar() {
 
   return (
     <div className="navbar">
-      { (profileRole === 'admin') && adminNavBar }
-      { (profileRole === 'customer') && customerNavBar }
-      { (profileRole === 'seller') && sellerNavBar }
-      <div
-        className="customer_products__element-navbar-user-full-name"
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        { profileName }
+      <div className="navbar__user-navigate">
+        { (profileRole === 'administrator') && adminNavBar }
+        { (profileRole === 'customer') && customerNavBar }
+        { (profileRole === 'seller') && sellerNavBar }
       </div>
-      <div>
-        <button
-          type="button"
-          className="customer_products__element-navbar-link-logout"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => logout() }
+      <div className="navbar__user-info">
+        <div
+          className="navbar-name"
+          data-testid="customer_products__element-navbar-user-full-name"
         >
-          SAIR
-        </button>
+          { profileName }
+        </div>
+        <div>
+          <button
+            type="button"
+            className="navbar-button navbar-button__exit"
+            data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => logout() }
+          >
+            SAIR
+          </button>
+        </div>
       </div>
     </div>
   );
