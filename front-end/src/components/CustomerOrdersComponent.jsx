@@ -14,7 +14,6 @@ export default function CustomerOrdersComponent() {
     if (id < thousand) return `0${id}`;
     return id;
   };
-
   useEffect(() => {
     async function getAllSales() {
       const { token } = JSON.parse(localStorage.getItem('user'));
