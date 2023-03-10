@@ -6,38 +6,37 @@ export default function CellCustomerOrderDetail(
   { UUID, id, data, status, totalPrice, index },
 ) {
   const history = useHistory();
+
   return (
     <button
       type="button"
+      className="customerOrders"
       onClick={ () => history.push(`/customer/orders/${UUID}`) }
     >
-      <div>
-        {
-          `id: ${id},
-          data: ${data},
-          status: ${status},
-          totalPrice: ${totalPrice}`
-        }
 
-        <div
-          data-testid={ `customer_orders__element-order-id-${index + 1}` }
-        >
-          { id }
-        </div>
+      <div
+        className="idOrder"
+        data-testid={ `customer_orders__element-order-id-${index + 1}` }
+      >
+        { id }
+      </div>
 
+      <div
+        className={ `statusOrder statusOrder-${status}` }
+        data-testid={ `customer_orders__element-delivery-status-${index + 1}` }
+      >
+        { status }
+      </div>
+      <div className="dataEPrice">
         <div
-          data-testid={ `customer_orders__element-delivery-status-${index + 1}` }
-        >
-          { status }
-        </div>
-
-        <div
+          className="dataOrder"
           data-testid={ `customer_orders__element-order-date-${index + 1}` }
         >
           { data }
         </div>
 
         <div
+          className="priceOrder"
           data-testid={ `customer_orders__element-card-price-${index + 1}` }
         >
           { totalPrice }
