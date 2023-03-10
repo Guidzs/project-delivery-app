@@ -6,36 +6,32 @@ export default function CheckoutCompletion() {
   const { cart, totalValueCart } = useContext(context);
   return (
     <div className="order-completion">
-      <table className="order-completion-table">
-        <thead className="order-completion-thead">
-          <tr className="checkout-item-cart">
-            <th className="table-index-field">Index</th>
-            <th className="table-descricao-field">Descrição</th>
-            <th className="table-quantity-field">Quantidade</th>
-            <th className="table-unit-value-field">Valor Unitário</th>
-            <th className="table-sub-total-field">Sub-Total</th>
-            <th className="table-button-remove-item-field">Remover Item</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            cart.map(({ name, price, quantity }, index) => (
-              <CheckoutItemCart
-                key={ `${index}-${name}` }
-                name={ name }
-                price={ price }
-                quantity={ quantity }
-                index={ index + 1 }
-              />
-            ))
-          }
-        </tbody>
-      </table>
+      <div className="order-completion-table">
+        <tr className="checkout-item-cart">
+          <th className="table-field table-index-head">Index</th>
+          <th className="table-field table-descricao-head">Descrição</th>
+          <th className="table-field table-quantity-head">Quantidade</th>
+          <th className="table-field table-unit-value-head">Valor Unitário</th>
+          <th className="table-field table-sub-total-head">Sub-Total</th>
+          <th className="table-field table-button-remove-item-head">Remover Item</th>
+        </tr>
+        {
+          cart.map(({ name, price, quantity }, index) => (
+            <CheckoutItemCart
+              key={ `${index}-${name}` }
+              name={ name }
+              price={ price }
+              quantity={ quantity }
+              index={ index + 1 }
+            />
+          ))
+        }
+      </div>
       <div
-        className="order-details-total"
+        className="shopping-cart-button"
         data-testid="customer_checkout__element-order-total-price"
       >
-        { totalValueCart.toFixed(2).replace('.', ',') }
+        { `R$ ${totalValueCart.toFixed(2).replace('.', ',')}` }
       </div>
     </div>
   );
