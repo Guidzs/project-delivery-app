@@ -45,3 +45,8 @@
   justify-content: center;
   width: 500px;
 }
+
+.navbar-button__exit {
+  background-color: rgb(0, 101, 216);
+  width: 150px;
+}

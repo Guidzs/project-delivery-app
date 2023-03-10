@@ -54,6 +54,7 @@ const getProductsSellerId = async () => {
   const sale = await sales.findAll();
   const response = await sale.filter(({ sellerId }) => sellerId === 2);
   return response;
+}
 
 const updateState = async (saleId) => {
   const sale = await sales.findByPk(saleId, {
@@ -91,4 +92,4 @@ module.exports = {
   getAllSalesService,
   updateState,
   updateStateCustomer,
-};
+}
