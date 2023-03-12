@@ -39,7 +39,6 @@ function SellerOrders() {
                   <p
                     data-testid={ `seller_orders__element-delivery-status-${order.id}` }
                   >
-                    <b>Status:</b>
                     {' '}
                     {order.status}
                   </p>

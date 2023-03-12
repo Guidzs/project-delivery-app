@@ -49,7 +49,7 @@ export default function SellerOrderDetails() {
       }
     };
     changeState();
-  }, [preprarar]);
+  }, [preprarar, saleId]);
 
   useEffect(() => {
     const changeState = async () => {
@@ -58,7 +58,7 @@ export default function SellerOrderDetails() {
       }
     };
     changeState();
-  }, [emTransito]);
+  }, [emTransito, saleId]);
 
   if (sales.length === 0) {
     return <h1>Loading...</h1>;

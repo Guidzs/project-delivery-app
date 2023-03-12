@@ -32,11 +32,11 @@ export default function OrderDetails() {
   useEffect(() => {
     const changeState = async () => {
       if (value === true) {
-        await axios.put(`customer/sales/${saleId}`);
+        await axios.put(`sales/customer/${saleId}`);
       }
     };
     changeState();
-  }, [value]);
+  }, [value, saleId]);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -91,7 +91,7 @@ export default function OrderDetails() {
         </p>
         <button
           type="button"
-          disabled={ sales.sale.status === 'Pendente' }
+          disabled={ sales.sale.status !== 'Em Trânsito' }
           onClick={ () => setValue(!value) }
           data-testid="customer_order_details__button-delivery-check"
         >

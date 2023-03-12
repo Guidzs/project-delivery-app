@@ -10,6 +10,6 @@ router.get('/:saleId', getById);
 router.get('/', getProductsBySeller);
 router.post('/', create);
 router.put('/:saleId', update);
-router.put('customer/:saleId', updateCustomer);
+router.put('/customer/:saleId', updateCustomer);
 
 module.exports = router;
