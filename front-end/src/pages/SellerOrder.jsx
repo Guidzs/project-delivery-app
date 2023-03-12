@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 import Navbar from '../components/NavBar';
 import axios from '../utils/connectionDatabase';
 
 function SellerOrders() {
-  const history = useHistory();
   const [orders, setOrders] = useState();
   const orderNumberLength = 4;
 
