@@ -61,17 +61,11 @@ const updateState = async (saleId) => {
   });
   const { dataValues } = sale;
   if (dataValues.status === 'Pendente') {
-    await sales.update(
-      { status: 'Preparando' },
-      { where: { id: sale.id } },
-    );
+    await sales.update({ status: 'Preparando' },{ where: { id: sale.id } });
     return currentSale(saleId);
   }
   if (dataValues.status === 'Preparando') {
-    await sales.update(
-      { status: 'Em Trânsito' },
-      { where: { id: sale.id } },
-    );
+    await sales.update({ status: 'Em Trânsito' },{ where: { id: sale.id } });
     return currentSale(saleId);
   }
   return currentSale(saleId);
