@@ -4,6 +4,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const response = await authentication({ email, password });
   const { token, name, role } = response;
+  console.log('amigo estou aqui!', response);
   return res.status(200).json({ token, email, name, role });
 };
 

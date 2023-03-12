@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import moment from 'moment/moment';
-
 import Navbar from '../components/NavBar';
 import axios from '../utils/connectionDatabase';
 
 function SellerOrders() {
+  const history = useHistory();
   const [orders, setOrders] = useState();
   const orderNumberLength = 4;
 
@@ -16,6 +16,7 @@ function SellerOrders() {
     };
     getOrders();
   }, [null]);
+
   return (
     <div>
       <Navbar />

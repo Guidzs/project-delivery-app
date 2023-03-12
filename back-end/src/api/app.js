@@ -11,6 +11,7 @@ const registerRouter = require('../routers/registerRouter');
 const productsRouter = require('../routers/productsRouter');
 const userRoutes = require('../routers/userRoutes');
 const salesRouter = require('../routers/salesRouter');
+const adminRoutes = require('../routers/adminRoutes');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/register', registerRouter);
 app.use('/products', productsRouter);
 app.use('/users', userRoutes);
 app.use('/sales', salesRouter);
+app.use('/admin', adminRoutes);
 app.use(errorMiddleware);
 
 module.exports = app;
