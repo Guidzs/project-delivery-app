@@ -40,7 +40,7 @@ export default function SellerOrderDetails() {
       }
     };
     getSales();
-  }, [null]);
+  }, [saleId]);
 
   useEffect(() => {
     const changeState = async () => {
