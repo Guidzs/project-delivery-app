@@ -4,6 +4,7 @@ import axios from '../utils/connectionDatabase';
 import { validateFieldsLogin } from '../utils/validations';
 import './Login.css';
 import context from '../context/Context';
+import magico from '../images/magico.jpg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -46,11 +47,20 @@ export default function Login() {
 
       localStorage.setItem('user', JSON.stringify(data));
       const { role } = JSON.parse(localStorage.getItem('user'));
-      if (role === 'customer') {
+
+      switch (role) {
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
+      case 'customer':
         history.push('/customer/products');
-      }
-      if (role === 'seller') {
-        history.push('/seller/orders');
+        break;
+      case 'seller':
+        history.push('seller/orders');
+        break;
+      default:
+        console.log('erro!');
+        setErrorEnabled(true);
       }
     } catch (error) {
       console.log('Amigo Estou aqui!!!');
@@ -118,39 +128,48 @@ export default function Login() {
             Ainda Não Tenho Conta
           </button>
 
-          {
-            (errorEnabled) && (
-              <p
-                className="common_login__element-invalid-email"
-                data-testid="common_login__element-invalid-email"
-              >
-                Usuário inválido! Tente novamente.
-              </p>
-            )
-          }
         </div>
+        {
+          (errorEnabled) && (
+            <p
+              className="common_login__element-invalid-email"
+              data-testid="common_login__element-invalid-email"
+            >
+              Usuário inválido! Tente novamente.
+            </p>
+          )
+        }
       </div>
       <button
         type="button"
-        className="help-dev"
+        className="help-dev-button"
         onClick={ () => setHelpDev(!helpDev) }
       >
-        CLICK DO DESENVOLVEDOR
+        CLICK DA MÁGICA
       </button>
       { (helpDev) && (
-        <>
-          <h3>Admin</h3>
-          <p>email: adm@deliveryapp.com</p>
-          <p>senha: --adm2@21!!--</p>
-          <hr />
-          <h3>Seller</h3>
-          <p>email: fulana@deliveryapp.com</p>
-          <p>senha: fulana@123</p>
-          <hr />
-          <h3>Customer</h3>
-          <p>email: zebirita@email.com</p>
-          <p>senha: $#zebirita#$</p>
-        </>
+        <div className="help-dev-row">
+          <div className="help-dev-magica">
+            <img src={ magico } alt="magica" />
+          </div>
+          <div className="help-dev-content">
+            <div className="help-dev-content-item">
+              <h3>Admin</h3>
+              <p>adm@deliveryapp.com</p>
+              <p>--adm2@21!!--</p>
+            </div>
+            <div className="help-dev-content-item">
+              <h3>Seller</h3>
+              <p>fulana@deliveryapp.com</p>
+              <p>fulana@123</p>
+            </div>
+            <div className="help-dev-content-item">
+              <h3>Customer</h3>
+              <p>zebirita@email.com</p>
+              <p>$#zebirita#$</p>
+            </div>
+          </div>
+        </div>
       ) }
     </>
   );

@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar';
 import ShoppingCart from '../components/ShoppingCart';
 import context from '../context/Context';
 import axios from '../utils/connectionDatabase';
+import './CustomerProducts.css';
 
 export default function CustomerProducts() {
   const { setCart } = useContext(context);
@@ -24,7 +25,7 @@ export default function CustomerProducts() {
   return (
     <>
       <NavBar />
-      <div className="card-product">
+      <div className="cards-products-container">
         {
           products.map(({ name, price, urlImage, id }) => (
             <CustomerProduct

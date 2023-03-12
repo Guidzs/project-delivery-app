@@ -19,8 +19,8 @@ export default function CustomerProduct({ id, name, price, urlImage }) {
   }, [quantity]);
 
   return (
-    <div key={ id }>
-      <div className="price">
+    <div key={ id } className="card-product">
+      <div className="product-price">
         <span>
           R$
           { ' ' }
@@ -31,42 +31,47 @@ export default function CustomerProduct({ id, name, price, urlImage }) {
           { price.replace(/\./, ',') }
         </span>
       </div>
-      <img
-        className="product-img"
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        src={ urlImage }
-        alt="imagem do produto"
-        style={ { width: '200px' } }
-      />
-
-      <p
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        { name }
-      </p>
-      <div className="controls">
-        <button
-          onClick={ () => changeQuantity(quantity - 1) }
-          type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-        >
-          -
-        </button>
-
-        <input
-          type="text"
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-          value={ quantity }
-          onChange={ ({ target }) => changeQuantity(target.value) }
+      <div className="products-img-container">
+        <img
+          className="product-img"
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt="imagem do produto"
         />
-        <button
-          onClick={ () => changeQuantity(quantity + 1) }
-          type="button"
-          data-testid={ `customer_products__button-card-add-item-${id}` }
+      </div>
+      <div className="product-control">
+        <p
+          data-testid={ `customer_products__element-card-title-${id}` }
         >
-          +
-        </button>
+          { name }
+        </p>
+        <div className="product-controls">
+          <button
+            className="product-controls-minus"
+            onClick={ () => changeQuantity(quantity - 1) }
+            type="button"
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+          >
+            -
+          </button>
 
+          <input
+            type="text"
+            className="product-controls-field"
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            value={ quantity }
+            onChange={ ({ target }) => changeQuantity(target.value) }
+          />
+          <button
+            onClick={ () => changeQuantity(quantity + 1) }
+            className="product-controls-plus"
+            type="button"
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+          >
+            +
+          </button>
+
+        </div>
       </div>
 
     </div>
