@@ -32,7 +32,9 @@ export default function OrderDetails() {
   useEffect(() => {
     const changeState = async () => {
       if (value === true) {
-        await axios.put(`sales/customer/${saleId}`);
+        const { data: { message: salesDB } } = await axios
+          .put(`sales/customer/${saleId}`);
+        setSales(salesDB);
       }
     };
     changeState();

@@ -65,14 +65,16 @@ const updateState = async (saleId) => {
       { status: 'Preparando' },
       { where: { id: sale.id } },
     );
-    return;
+    return currentSale(saleId);
   }
   if (dataValues.status === 'Preparando') {
     await sales.update(
       { status: 'Em Trânsito' },
       { where: { id: sale.id } },
     );
+    return currentSale(saleId);
   }
+  return currentSale(saleId);
 };
 
 const updateStateCustomer = async (saleId) => {
@@ -83,7 +85,8 @@ const updateStateCustomer = async (saleId) => {
     { status: 'Entregue' },
     { where: { id: sale.id } },
   );
-  };
+  return currentSale(saleId);
+};
 
 module.exports = {
   newSales,

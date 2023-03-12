@@ -45,7 +45,8 @@ export default function SellerOrderDetails() {
   useEffect(() => {
     const changeState = async () => {
       if (preprarar) {
-        await axios.put(`/sales/${saleId}`);
+        const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`);
+        setSales(salesDB);
       }
     };
     changeState();
@@ -54,7 +55,8 @@ export default function SellerOrderDetails() {
   useEffect(() => {
     const changeState = async () => {
       if (emTransito) {
-        await axios.put(`/sales/${saleId}`);
+        const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`);
+        setSales(salesDB);
       }
     };
     changeState();
