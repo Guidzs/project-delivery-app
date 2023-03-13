@@ -6,7 +6,7 @@ import Page404 from '../pages/Page404';
 
 function SellerSwitch() {
   return (
-    <div className="App">
+    <div className="Seller-Switch">
       <Switch>
         <Route path="/seller/orders/:saleId" component={ SellerOrderDetails } />
         <Route exact path="/seller/orders" component={ SellerOrder } />

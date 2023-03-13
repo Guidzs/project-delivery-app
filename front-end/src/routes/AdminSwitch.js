@@ -5,7 +5,7 @@ import AdminManage from '../pages/AdminManage';
 
 function AdminSwitch() {
   return (
-    <div className="App">
+    <div className="Admin-Switch">
       <Switch>
         <Route path="/admin/manage" component={ AdminManage } />
         <Route component={ Page404 } />

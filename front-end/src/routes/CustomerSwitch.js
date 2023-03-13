@@ -8,7 +8,7 @@ import CustomerOrders from '../pages/CustomerOrders';
 
 function CustomerSwitch() {
   return (
-    <div className="App">
+    <div className="Customer-Switch">
       <Switch>
         <Route path="/customer/products" component={ CustomerProducts } />
         <Route path="/customer/checkout" component={ CustomerCheckout } />
