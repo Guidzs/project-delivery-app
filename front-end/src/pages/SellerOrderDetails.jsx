@@ -40,25 +40,27 @@ export default function SellerOrderDetails() {
       }
     };
     getSales();
-  }, [null]);
+  }, [saleId]);
 
   useEffect(() => {
     const changeState = async () => {
       if (preprarar) {
-        await axios.put(`/sales/${saleId}`);
+        const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`);
+        setSales(salesDB);
       }
     };
     changeState();
-  }, [preprarar]);
+  }, [preprarar, saleId]);
 
   useEffect(() => {
     const changeState = async () => {
       if (emTransito) {
-        await axios.put(`/sales/${saleId}`);
+        const { data: { message: salesDB } } = await axios.put(`/sales/${saleId}`);
+        setSales(salesDB);
       }
     };
     changeState();
-  }, [emTransito]);
+  }, [emTransito, saleId]);
 
   if (sales.length === 0) {
     return <h1>Loading...</h1>;

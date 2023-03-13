@@ -45,16 +45,16 @@ const getAllSalesController = async (req, res) => {
 };
 
 const update = async (req, res) => {
-const { saleId } = req.params;
- const allSales = await updateState(saleId);
-return res.status(201).json(allSales);
+  const { saleId } = req.params;
+  const sale = await updateState(saleId);
+  return res.status(201).json({ message: sale });
 };
 
 const updateCustomer = async (req, res) => {
   const { saleId } = req.params;
-   const allSales = await updateStateCustomer(saleId);
-  return res.status(201).json(allSales);
-  };
+  const sale = await updateStateCustomer(saleId);
+  return res.status(201).json({ message: sale });
+};
 
 module.exports = {
   create,

@@ -61,17 +61,14 @@ const updateState = async (saleId) => {
   });
   const { dataValues } = sale;
   if (dataValues.status === 'Pendente') {
-    await sales.update(
-      { status: 'Preparando' },
-      { where: { sellerId: sale.sellerId } },
-    );
+    await sales.update({ status: 'Preparando' }, { where: { id: sale.id } });
+    return currentSale(saleId);
   }
   if (dataValues.status === 'Preparando') {
-    await sales.update(
-      { status: 'Em Trânsito' },
-      { where: { sellerId: sale.sellerId } },
-    );
+    await sales.update({ status: 'Em Trânsito' }, { where: { id: sale.id } });
+    return currentSale(saleId);
   }
+  return currentSale(saleId);
 };
 
 const updateStateCustomer = async (saleId) => {
@@ -80,9 +77,10 @@ const updateStateCustomer = async (saleId) => {
   });
   await sales.update(
     { status: 'Entregue' },
-    { where: { sellerId: sale.sellerId } },
+    { where: { id: sale.id } },
   );
-  };
+  return currentSale(saleId);
+};
 
 module.exports = {
   newSales,
