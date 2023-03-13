@@ -12,6 +12,18 @@ export default function CheckoutDetails() {
   const [seller, setSeller] = useState('');
   const [deliveryAddress, setAddress] = useState('');
   const [deliveryNumber, setAddressNumber] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (
+      deliveryAddress.length <= 0
+      || deliveryNumber.length <= 0
+      || seller.length <= 0
+      || cart.length === 0
+    ) {
+      setButtonDisabled(true);
+    } else { setButtonDisabled(false); }
+  }, [deliveryAddress, seller, deliveryNumber, cart]);
 
   const salesConnection = async () => {
     const { name: customer, token } = JSON.parse(localStorage.getItem('user'));
@@ -50,45 +62,70 @@ export default function CheckoutDetails() {
     if (sellers.length > 0) setSeller(sellers[0]);
   }, [sellers]);
 
+  const buttonClass = (buttonDisabled)
+    ? 'app-admin__button-login app-admin__button-login-disabled'
+    : 'app-admin__button-login';
+
   return (
-    <div className="order-details">
-      <select
-        data-testid="customer_checkout__select-seller"
-        className="customer_checkout__select-seller"
-        value={ seller }
-        onChange={ ({ target }) => {
-          setSeller(target.value);
-          console.log('novo option');
-        } }
+    <div className="app-admin-manage__register customer-checkout__form-order-complement">
+      <label
+        htmlFor="customer_checkout__select-seller"
+        className="app-admin__field-label"
       >
-        { sellers.map((name, index) => (
-          <option key={ `${name}-${index}` }>
-            { name }
-          </option>
-        )) }
-      </select>
+        Vendedor
+        <select
+          data-testid="customer_checkout__select-seller"
+          id="customer_checkout__select-seller"
+          className="app-admin__field"
+          value={ seller }
+          onChange={ ({ target }) => {
+            setSeller(target.value);
+            console.log('novo option');
+          } }
+        >
+          { sellers.map((name, index) => (
+            <option key={ `${name}-${index}` }>
+              { name }
+            </option>
+          )) }
+        </select>
+      </label>
 
-      <input
-        type="text"
-        placeholder="address"
-        data-testid="customer_checkout__input-address"
-        className="customer_checkout__input-address"
-        value={ deliveryAddress }
-        onChange={ ({ target }) => setAddress(target.value) }
-      />
+      <label
+        htmlFor="customer_checkout__select-seller"
+        className="app-admin__field-label"
+        //
+      >
+        Endereço
+        <input
+          type="text"
+          placeholder="address"
+          data-testid="customer_checkout__input-address"
+          className="app-admin__field"
+          value={ deliveryAddress }
+          onChange={ ({ target }) => setAddress(target.value) }
+        />
+      </label>
 
-      <input
-        type="text"
-        placeholder="number"
-        data-testid="customer_checkout__input-address-number"
-        className="customer_checkout__input-address-number"
-        value={ deliveryNumber }
-        onChange={ ({ target }) => setAddressNumber(target.value) }
-      />
+      <label
+        htmlFor="customer_checkout__select-seller"
+        className="app-admin__field-label"
+      >
+        Número
+        <input
+          type="text"
+          placeholder="number"
+          data-testid="customer_checkout__input-address-number"
+          className="app-admin__field"
+          value={ deliveryNumber }
+          onChange={ ({ target }) => setAddressNumber(target.value) }
+        />
+      </label>
 
       <button
         type="button"
-        className="customer_checkout__button-submit-order"
+        disabled={ buttonDisabled }
+        className={ buttonClass }
         data-testid="customer_checkout__button-submit-order"
         onClick={ () => finishOrder() }
       >
