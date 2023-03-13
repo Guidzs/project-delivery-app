@@ -3,9 +3,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Page404 from './pages/Page404';
 import Register from './pages/Register';
-import AdminSwitch from './Routes/FakeAdminSwitch';
-import CustomerSwitch from './Routes/FakeCustomerSwitch';
-import SellerSwitch from './Routes/FakeSellerSwitch';
+import AdminSwitch from './Routes/AdminSwitch';
+import CustomerSwitch from './Routes/CustomerSwitch';
+import SellerSwitch from './Routes/SellerSwitch';
 
 function App() {
   return (
